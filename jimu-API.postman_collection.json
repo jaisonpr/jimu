@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "b7d3d5c3-234c-4d9b-a092-6cde60052f0b",
+		"name": "jimu-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/workouts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Teste2\",\n    \"dateTime\":\"2020-01-21T19:55:00.000Z\",\n    \"duration\":\"60\",\n    \"sport\":\"Circuit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/workouts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/workouts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Teste2\",\n    \"date\":\"2020-01-21T19:55:00.000Z\",\n    \"time\":\"150\",\n    \"duration\":\"60\",\n    \"sport\":\"Circuit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/workouts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/workouts/5fd6451194f1ab459f9361fe",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Teste2\",\n    \"date\":\"2020-01-21T19:55:00.000Z\",\n    \"time\":\"150\",\n    \"duration\":\"60\",\n    \"sport\":\"Circuit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/workouts/5fd63cd054a0ad3afe7ca097",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"workouts",
+						"5fd63cd054a0ad3afe7ca097"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
