@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<title>ジム - Workouts</title>
+</head>
+
+<body>
+
+	<header>
+		<nav id="menu" class="navbar navbar-expand-lg  navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">ジム</a>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Workouts <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">History</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Statistics
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Summary</a>
+              <a class="dropdown-item" href="#">By Sport</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Fitness</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add new</button>
+        </form>
+      </div>
+		</nav>
+  </header>
+	
+	<section id="main">
+		<div id="conteudo" class="container-fluid text-center" ></div>
+  </section>
+  
+	<footer class="container-fluid text-right">
+		<p> Workouts: 1521</p>
+		<p> Amount of time: 5205</p>
+	</footer>
+    
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+      $(document).ready(function(){
+        loadCalendar();
+      });
+  </script>
+</body>
+
+</html>
