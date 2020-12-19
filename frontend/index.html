@@ -7,64 +7,192 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/workouts-calendar.css" />
 
 	<title>ジム - Workouts</title>
 </head>
 
 <body>
 
-	<header>
-		<nav id="menu" class="navbar navbar-expand-lg  navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">ジム</a>
-      
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Workouts <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">History</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Statistics
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Summary</a>
-              <a class="dropdown-item" href="#">By Sport</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Fitness</a>
-            </div>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add new</button>
-        </form>
-      </div>
-		</nav>
-  </header>
-	
+
+	<div id="addNewModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add new workout </h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-form-label col-sm-2 ">Title</div>
+								<div class="col-sm-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="title" name="title"
+											placeholder="Title">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="date" class="col-md-2 col-form-label">Date and Time</label>
+							<div class="col-sm-4">
+								<div class="input-group">
+									<input type="text" class="form-control" id="date" name="date" placeholder="Date">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="input-group">
+									<input type="text" class="form-control" id="time" name="time" placeholder="Time">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-form-label col-sm-2 ">Duration</div>
+								<div class="col-sm-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="duration" name="duration"
+											placeholder="Duration">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-form-label col-sm-2 ">Local</div>
+								<div class="col-sm-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="local" name="local"
+											placeholder="Local">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-form-label col-sm-2 ">Sport</div>
+								<div class="col-sm-8">
+									<div class="input-group">
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												Dropdown button
+											</button>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" href="#">Circuit</a>
+												<a class="dropdown-item" href="#">Martial Arts</a>
+												<a class="dropdown-item" href="#">Pilates</a>
+												<a class="dropdown-item" href="#">Stretching</a>
+												<a class="dropdown-item" href="#">Weight</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="form-row">
+							<button type="button" class="btn btn-secondary btn-sm ml-auto"
+								data-dismiss="modal">Cancel</button>
+							<button class="btn btn-primary btn-sm ml-1">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<nav id="menu" class="navbar navbar-expand-lg  navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">ジム</a>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Workouts <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">History</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Statistics
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Summary</a>
+						<a class="dropdown-item" href="#">By Sport</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Fitness</a>
+					</div>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<button id="addNewButton" class="btn btn-outline-success my-2 my-sm-0" type="button">Add new
+					workout</button>
+
+			</form>
+		</div>
+	</nav>
+
+
 	<section id="main">
-		<div id="conteudo" class="container-fluid text-center" ></div>
-  </section>
-  
+		
+		<div class="calendar">
+			<div class="month">
+				<i class="fas fa-angle-left prev"></i>
+				<div class="date">
+					<h1></h1>
+				</div>
+				<i class="fas fa-angle-right next"></i>
+			</div>
+			<div class="weekdays">
+				<div>Sun</div>
+				<div>Mon</div>
+				<div>Tue</div>
+				<div>Wed</div>
+				<div>Thu</div>
+				<div>Fri</div>
+				<div>Sat</div>
+			</div>
+			<div class="days"></div>
+		</div>
+
+	</section>
+
+
 	<footer class="container-fluid text-right">
 		<p> Workouts: 1521</p>
 		<p> Amount of time: 5205</p>
 	</footer>
-    
 
-  <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
-  <script src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-  <script>
-      $(document).ready(function(){
-        loadCalendar();
-      });
-  </script>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/workouts-data.js"></script>
+	<script src="js/workouts-calendar.js"></script>
+	<script>
+
+		$(document).ready(function () {
+			loadCalendar();
+		});
+
+		$("#addNewButton").click(function () {
+			$("#addNewModal").modal({
+				show: true
+			});
+		});
+
+	</script>
+
 </body>
 
 </html>

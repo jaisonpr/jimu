@@ -1,11 +1,25 @@
+body {
+     background-color: rgb(141, 145, 146);
+}
+
+#addNewModal {
+     background-color: rgb(99, 101, 102);
+
+}
+
+.modal-backdrop {
+     background-color: rgb(99, 101, 102);
+  }
+
 footer {
-	background-color: #555;
-    color: white;
-	padding: 15px;
+     background-color: #555;
+     color           : white;
+     padding         : 15px;
+     font-size       : 0.8rem;
 }
 
 footer a {
-     color: white;     
+     color: white;
 }
 
 footer a:visited {
