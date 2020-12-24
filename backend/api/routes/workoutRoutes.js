@@ -4,12 +4,18 @@ module.exports = function(app) {
 
     var controller = require('../controllers/workoutsController');
 
-    app.route('/workouts')
+    var api = '/api/v1';
+
+    app.route(api+'/workouts')
         .get(controller.listAll)
         .post(controller.create);
 
-    app.route('/workouts/:workoutId')
-        .get(controller.getWorkout)
-        .put(controller.setWorkout)
-        .delete(controller.deleteWorkout);
+    app.route(api+'/workouts/:workoutId')
+        .get(controller.getById)
+        .put(controller.edit)
+        .delete(controller.delete);
+    
+
+    app.route(api+'/workouts/monthly/:date')
+        .get(controller.listMonthly);
 };

@@ -1,32 +1,33 @@
-
-function getSumWorkout() {
-    return Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+function timeConvert(num) {
+    let hours = (num / 60);
+    let rhours = Math.floor(hours);
+    let minutes = (hours - rhours) * 60;
+    let rminutes = Math.round(minutes);
+    return rhours + ":" + rminutes;
 }
 
-function getWorkoutsDay(day) {
 
-    let workoutJSON_mock1 = { 
-        "title": "Karate", 
-        "dateTime": new Date(),
-        "duration": "80",
-        "local": "Budokan",
-        "sport": "Martial arts"
-    };
+function getWorkoutsDay(workouts, day) {
 
-    let workoutJSON_mock2 = { 
-        "title": "coreP", 
-        "dateTime": new Date(),
-        "duration": "60",
-        "local": "Casa",
-        "sport": "Pilates"
-    };
+    let sum = 0;
+    let workoutsDay = [];
 
-    let sum = getSumWorkout();
+    workouts.forEach(w => {
+        let date = new Date(w.dateTime);
+        if (date.getDate() == day) {
+            sum += w.duration;
+            workoutsDay.push(w);
+        }
+    });
 
-    let dayObject = { 
+    workoutsDay.sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    let dayObject = {
         "day": day,
-        "sum": sum,
-        "workouts": [workoutJSON_mock1, workoutJSON_mock2]
+        "sum": timeConvert(sum),
+        "workouts": workoutsDay
     };
 
     return dayObject;

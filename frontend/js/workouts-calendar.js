@@ -1,27 +1,34 @@
 const date = new Date();
 
-const renderCalendar = () => {
+const renderCalendar = async () => {
     date.setDate(1);
 
+    const year = date.getFullYear(); 
+    const month = date.getMonth() + 1;
+
+    /// month's workouts 
+    let workouts = await loadCalendar(`${year}-${month}-01`);
+    
+      
     const monthDays = document.querySelector(".days");
 
     const lastDay = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
+        year,
+        month,
         0
     ).getDate();
 
     const prevLastDay = new Date(
-        date.getFullYear(),
-        date.getMonth(),
+        year,
+        month -1,
         0
     ).getDate();
 
     const firstDayIndex = date.getDay();
 
     const lastDayIndex = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
+        year,
+        month,
         0
     ).getDay();
 
@@ -52,16 +59,18 @@ const renderCalendar = () => {
 
     for (let day = 1; day <= lastDay; day++) {
 
-        let dayObject = getWorkoutsDay(day);
+        /// day's workouts 
+        let dayObject = getWorkoutsDay(workouts, day);
         let listWorkouts = '';
         dayObject.workouts.forEach (
             w => {
-                listWorkouts += `<li>${w.sport}</li>`;
+                listWorkouts += `<li id="${w._id}" onclick="editWorkout('${w._id}');">${w.sport}</li>`;
             }
         );
+        ///
 
         days += 
-            `<div id="day" onclick="alert(${dayObject.day})">       
+            `<div id="day">       
 
                 <div id="day_number" style="">
                     ${day}
@@ -74,7 +83,7 @@ const renderCalendar = () => {
                 </div>  
                 
                 <div id="day_hours">
-                    ${dayObject.sum}h
+                    ${dayObject.sum}
                 </div>                 
             </div>`;
     }

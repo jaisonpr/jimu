@@ -6,8 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
+	<link rel="shortcut icon" href="img/favicon.ico" />
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+	<link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/workouts-calendar.css" />
 
@@ -15,99 +16,6 @@
 </head>
 
 <body>
-
-
-	<div id="addNewModal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-lg" role="content">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Add new workout </h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-form-label col-sm-2 ">Title</div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input type="text" class="form-control" id="title" name="title"
-											placeholder="Title">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="date" class="col-md-2 col-form-label">Date and Time</label>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input type="text" class="form-control" id="date" name="date" placeholder="Date">
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input type="text" class="form-control" id="time" name="time" placeholder="Time">
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-form-label col-sm-2 ">Duration</div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input type="text" class="form-control" id="duration" name="duration"
-											placeholder="Duration">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-form-label col-sm-2 ">Local</div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input type="text" class="form-control" id="local" name="local"
-											placeholder="Local">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-form-label col-sm-2 ">Sport</div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button"
-												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false">
-												Dropdown button
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Circuit</a>
-												<a class="dropdown-item" href="#">Martial Arts</a>
-												<a class="dropdown-item" href="#">Pilates</a>
-												<a class="dropdown-item" href="#">Stretching</a>
-												<a class="dropdown-item" href="#">Weight</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-						<div class="form-row">
-							<button type="button" class="btn btn-secondary btn-sm ml-auto"
-								data-dismiss="modal">Cancel</button>
-							<button class="btn btn-primary btn-sm ml-1">Save</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
 
 	<nav id="menu" class="navbar navbar-expand-lg  navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">ジム</a>
@@ -141,9 +49,15 @@
 		</div>
 	</nav>
 
+	<div id="addNewModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="content">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
 
 	<section id="main">
-		
+
 		<div class="calendar">
 			<div class="month">
 				<i class="fas fa-angle-left prev"></i>
@@ -176,19 +90,14 @@
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
 	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="js/controller.js"></script>
 	<script src="js/workouts-data.js"></script>
 	<script src="js/workouts-calendar.js"></script>
 	<script>
-
-		$(document).ready(function () {
-			loadCalendar();
-		});
-
-		$("#addNewButton").click(function () {
-			$("#addNewModal").modal({
-				show: true
-			});
+		
+		$('#addNewButton').on('click', function (e) {
+			e.preventDefault();
+			$('#addNewModal').modal('show').find('.modal-content').load('pages/addNew.html');
 		});
 
 	</script>

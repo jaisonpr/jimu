@@ -22,7 +22,7 @@ var WorkoutSchema = new Schema({
   sport: {
     type: [{
       type: String,
-      enum: ['Pilates', 'Weight', 'Circuit', 'Martial arts']
+      enum: ['Pilates', 'Weight', 'Circuit', 'Martial arts', 'Stretching']
     }],
     default: ['Circuit']
   },

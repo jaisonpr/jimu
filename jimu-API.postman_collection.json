@@ -6,35 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:3000/workouts",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\":\"Teste2\",\n    \"dateTime\":\"2020-01-21T19:55:00.000Z\",\n    \"duration\":\"60\",\n    \"sport\":\"Circuit\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/workouts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"workouts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/workouts",
+			"name": "listAllWorkouts",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -51,21 +23,24 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/workouts",
+					"raw": "http://localhost:3000/api/v1/workouts/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"workouts"
+						"api",
+						"v1",
+						"workouts",
+						""
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/workouts/5fd6451194f1ab459f9361fe",
+			"name": "deleteWorkout",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -79,20 +54,105 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/workouts/5fd63cd054a0ad3afe7ca097",
+					"raw": "http://localhost:3000/api/v1/workouts/5fdfc1844f52f61c0e3457f1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
+						"v1",
 						"workouts",
-						"5fd63cd054a0ad3afe7ca097"
+						"5fdfc1844f52f61c0e3457f1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "monthlyWorkouts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/workouts/monthly/date=2020-12-20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"workouts",
+						"monthly",
+						"date=2020-12-20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNewWorkout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Karate\",\n    \"dateTime\":\"2020-01-21T19:55:00.000Z\",\n    \"duration\":\"60\",\n    \"local\" : \"Budokan\",\n    \"sport\":\"Martial arts\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/workouts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editWorkout",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sport\":\"Martial arts\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/workouts/5fdfe57425aa8b3d6c291797",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"workouts",
+						"5fdfe57425aa8b3d6c291797"
 					]
 				}
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

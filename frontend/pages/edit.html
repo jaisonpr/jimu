@@ -1,10 +1,10 @@
 <div class="modal-header">
-    <h4 class="modal-title">Add new workout </h4>
+    <h4 class="modal-title">Edit workout </h4>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
 
 <div class="modal-body">
-    <form id="formAddNew">
+    <form id="formEdit">
         <div class="form-group">
             <div class="row">
                 <div class="col-form-label col-sm-2 ">Title</div>
@@ -67,8 +67,25 @@
     </form>
     <div class="modal-footer">
         <div class="panel-footer">
-            <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary btn-sm ml-1" onclick="saveWorkout(document, 0)" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-danger btn-sm ml-1" data-dismiss="modal"
+                onclick="deleteWorkout(workout._id)">Delete</button>
+            <button type="button" class="btn btn-secondary btn-sm ml-1" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary btn-sm ml-1" data-dismiss="modal"
+                onclick="saveWorkout(document, workout._id)">Save</button>
         </div>
     </div>
 </div>
+
+
+<script>
+
+    workout = JSON.parse(localStorage.getItem("workout"));
+    dateTime = new Date(workout.dateTime);
+
+    document.getElementById('title').value = workout.title;
+    document.getElementById('date').value = `${dateTime.getFullYear()}-${dateTime.getMonth()+1}-${dateTime.getDate()}`;
+    document.getElementById('time').value = `${dateTime.getUTCHours()}:${dateTime.getUTCMinutes()}`;
+    document.getElementById('duration').value = workout.duration;
+    document.getElementById('sport').value = workout.sport;
+    document.getElementById('local').value = workout.local;
+</script>
