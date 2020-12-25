@@ -20,7 +20,7 @@ function saveWorkout(document, id) {
         contentType: "application/json",
         dataType: 'json',
         data: jsonString(document)
-    })
+        })
         .done(function () {
             console.log("success");
         })
@@ -29,7 +29,10 @@ function saveWorkout(document, id) {
         })
         .always(function () {
             console.log("complete");
-        });
+    });
+    
+    
+    localStorage.removeItem("workout");
 }
 
 async function loadCalendar(date) {

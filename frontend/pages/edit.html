@@ -79,17 +79,18 @@
 
 <script>
 
-    workout = JSON.parse(localStorage.getItem("workout"));
-    dateTime = new Date(workout.dateTime);
+    if (localStorage.getItem("workout")) {
+        workout = JSON.parse(localStorage.getItem("workout"));
+        dateTime = new Date(workout.dateTime);
 
-    document.getElementById('title').value = workout.title;
-    document.getElementById('date').value = `${dateTime.getFullYear()}-${dateTime.getMonth() + 1}-${dateTime.getDate()}`;
-    document.getElementById('time').value = `${(dateTime.getUTCHours() < 10 ? '0': '') + dateTime.getUTCHours()}
-        :${(dateTime.getUTCMinutes() < 10 ? '0': '') + dateTime.getUTCMinutes()}`;
-    document.getElementById('duration').value = ( workout.duration < 100 ? '0' : '') + workout.duration;
-    document.getElementById('sport').value = workout.sport;
-    document.getElementById('local').value = workout.local;
-    
+        document.getElementById('title').value = workout.title;
+        document.getElementById('date').value = `${dateTime.getFullYear()}-${formatTwoDigits(dateTime.getMonth() + 1)}-${formatTwoDigits(dateTime.getDate())}`;
+        document.getElementById('time').value = `${formatTwoDigits(dateTime.getUTCHours())}:${formatTwoDigits(dateTime.getUTCMinutes())}`;
+        document.getElementById('duration').value = (workout.duration < 100 ? '0' : '') + workout.duration;
+        document.getElementById('sport').value = workout.sport;
+        document.getElementById('local').value = workout.local;
+    }
+
     jQuery(function ($) {
         $("#date").mask("9999-99-99", { autoclear: false });
         $("#time").mask("99:99", { autoclear: false });

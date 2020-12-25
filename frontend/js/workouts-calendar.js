@@ -75,16 +75,14 @@ const renderCalendar = async () => {
 
         days += `
             <div id="day">       
-                <div id="day_number" style="">
+                <div id="day_number">
                     ${day}
-                </div>  
-                
+                </div>                  
                 <div id="day_list">
                     <ul>
                         ${listWorkouts}
                     </ul> 
-                </div>  
-                
+                </div>                  
                 <div id="day_hours">
                     ${formatTime(dayObject.sum)}
                 </div>                 

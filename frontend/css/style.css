@@ -56,5 +56,10 @@ footer a:visited {
 
 li:hover {
      color    : red;
-     font-size: 0.9rem;
+     font-size: 1rem;
+}
+
+ul {
+     list-style: none;
+     padding   : 5px;
 }
