@@ -57,21 +57,24 @@ const renderCalendar = async () => {
         days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
     }
 
+
+    let workouts_month = 0;
+    let time_workouts_month = 0;
+
     for (let day = 1; day <= lastDay; day++) {
 
         /// day's workouts 
         let dayObject = getWorkoutsDay(workouts, day);
         let listWorkouts = '';
-        dayObject.workouts.forEach (
-            w => {
-                listWorkouts += `<li id="${w._id}" onclick="editWorkout('${w._id}');">${w.sport}</li>`;
-            }
-        );
-        ///
+        dayObject.workouts.forEach ( w => { 
+            listWorkouts += `<li id="${w._id}" onclick="editWorkout('${w._id}');">${w.sport}</li>`; 
+        } );
+        
+        workouts_month += dayObject.workouts.length;
+        time_workouts_month += dayObject.sum;
 
-        days += 
-            `<div id="day">       
-
+        days += `
+            <div id="day">       
                 <div id="day_number" style="">
                     ${day}
                 </div>  
@@ -83,7 +86,7 @@ const renderCalendar = async () => {
                 </div>  
                 
                 <div id="day_hours">
-                    ${dayObject.sum}
+                    ${formatTime(dayObject.sum)}
                 </div>                 
             </div>`;
     }
@@ -92,6 +95,10 @@ const renderCalendar = async () => {
         days += `<div class="next-date">${j}</div>`;
         monthDays.innerHTML = days;
     }
+
+    //footer
+    document.querySelector("#workouts_month").innerHTML = workouts_month;
+    document.querySelector("#time_workouts_month").innerHTML = formatTime(time_workouts_month);
 };
 
 document.querySelector(".prev").addEventListener("click", () => {

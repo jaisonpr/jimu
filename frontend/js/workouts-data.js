@@ -1,9 +1,9 @@
-function timeConvert(num) {
+function formatTime(num) {
     let hours = (num / 60);
     let rhours = Math.floor(hours);
     let minutes = (hours - rhours) * 60;
     let rminutes = Math.round(minutes);
-    return rhours + ":" + rminutes;
+    return ((rhours < 10 ? '0' : '') + rhours) + ":" + ((rminutes < 10 ? '0' : '') + rminutes);
 }
 
 
@@ -26,7 +26,7 @@ function getWorkoutsDay(workouts, day) {
 
     let dayObject = {
         "day": day,
-        "sum": timeConvert(sum),
+        "sum": sum,
         "workouts": workoutsDay
     };
 

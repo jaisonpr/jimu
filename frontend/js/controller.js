@@ -50,7 +50,7 @@ async function editWorkout(id) {
     });
     localStorage.setItem("workout", JSON.stringify(workout));
 
-    $('#addNewModal').modal('show').find('.modal-content').load('pages/edit.html');
+    $('#crudModal').modal('show').find('.modal-content').load('pages/edit.html');
 }
 
 function deleteWorkout(id) {

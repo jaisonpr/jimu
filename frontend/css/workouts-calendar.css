@@ -90,7 +90,7 @@
 }
 
 #day_hours {
-  width         : 12%;
+  width         : 13%;
   align-items   : flex-end;
   padding-bottom: 5px;
   font-size     : 0.7rem;
@@ -99,5 +99,5 @@
 #day_number {
   font-style: italic;
   font-size : 0.9rem;
-  width     : 8%;
+  width     : 7%;
 }
