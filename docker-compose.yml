@@ -1,15 +1,6 @@
-version: '3'
+version: "3"
 
 services:
-  backend-api:
-    image: docker-node-mongo
-    build: ./backend
-    command: "node server.js"
-    ports:
-      - "3000:3000"
-    depends_on:
-      - "mongo"
-
   mongo:
     container_name: mongodb
     image: mongo
@@ -17,12 +8,20 @@ services:
       - "27017:27017"
     volumes:
       - /home/jaisonpr/workspace/jimu/database/mongodb/data:/data/db
-            
-  frontend:
-    image: docker-frontend
-    build: ./frontend
-    command: "npm start"
+
+  backend-api:
+    container_name: backend-api
+    build: ./backend
+    command: "node server.js"
     ports:
-      - "3001:3001"
+      - "3000:3000"
+    depends_on:
+      - "mongo"
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - 4200:80
     links:
-      - "backend-api"
+      - backend-api
