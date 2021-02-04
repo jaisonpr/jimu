@@ -2,7 +2,7 @@ version: "3"
 
 services:
   mongo:
-    container_name: mongodb
+    container_name: jimu-mongodb
     image: mongo
     ports:
       - "27018:27017"
@@ -10,7 +10,7 @@ services:
       - /home/jaisonpr/workspace/jimu/database/mongodb/data:/data/db
 
   backend-api:
-    container_name: backend-api
+    container_name: jimu-backend-api
     build: ./backend
     command: "node server.js"
     ports:
@@ -18,10 +18,10 @@ services:
     depends_on:
       - "mongo"
 
-  # frontend:
-  #   container_name: frontend
-  #   build: ./frontend
-  #   ports:
-  #     - 4200:80
-  #   links:
-  #     - backend-api
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - 4200:80
+    links:
+     - backend-api

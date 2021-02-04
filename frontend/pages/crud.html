@@ -93,9 +93,12 @@
         document.getElementById('local').value = workout.local;
 
         $('#bSave').on('click', saveWorkout(document, workout._id));
-        $('#bDelete').on('click', deleteWorkout(workout._id));
-
-        localStorage.removeItem("workout");
+        $('#bDelete').click( function() {
+            if ( confirm('Are you sure?')) {
+                deleteWorkout(workout._id);
+                renderCalendar();
+            }
+        });
 
     } else {
         
