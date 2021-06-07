@@ -54,6 +54,9 @@
                 <div class="col-sm-8">
                     <div class="input-group">
                         <select name="sport" id="sport" class="form-control" title="Sport">
+                            <option value="Abs">Abs</option>
+                            <option value="Bike indoor">Bike indoor</option>
+                            <option value="Bike outdoor">Bike outdoor</option>
                             <option value="Circuit">Circuit</option>
                             <option value="Martial arts">Martial arts</option>
                             <option value="Pilates">Pilates</option>
@@ -77,8 +80,6 @@
 
 
 <script>
-
-
 
     if (localStorage.getItem("workout")) {
         workout = JSON.parse(localStorage.getItem("workout"));

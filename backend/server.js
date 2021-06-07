@@ -8,7 +8,7 @@ const
 const Workout = require('./api/models/workout');
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
-mongoose.connect('mongodb://mongo:27018/jimu-db')
+mongoose.connect('mongodb://localhost:27017/jimu-db')
   .then((db) => {
     console.log('Connected correctly to database server');
   })

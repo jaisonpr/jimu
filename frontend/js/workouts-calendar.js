@@ -57,7 +57,6 @@ const renderCalendar = async () => {
         days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
     }
 
-
     let workouts_month = 0;
     let time_workouts_month = 0;
 
@@ -65,11 +64,12 @@ const renderCalendar = async () => {
 
         /// day's workouts 
         let dayObject = getWorkoutsDay(workouts, day);
+
         let listWorkouts = '';
         dayObject.workouts.forEach ( w => { 
             listWorkouts += `<li id="${w._id}" onclick="editWorkout('${w._id}');">${w.sport}</li>`; 
         } );
-        
+
         workouts_month += dayObject.workouts.length;
         time_workouts_month += dayObject.sum;
 

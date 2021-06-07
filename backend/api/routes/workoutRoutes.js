@@ -15,7 +15,6 @@ module.exports = function(app) {
         .put(controller.edit)
         .delete(controller.delete);
     
-
     app.route(api+'/workouts/monthly/:date')
         .get(controller.listMonthly);
 };

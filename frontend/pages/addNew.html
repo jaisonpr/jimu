@@ -54,6 +54,9 @@
                 <div class="col-sm-8">
                     <div class="input-group">
                         <select name="sport" id="sport" class="form-control" title="Sport">
+                            <option value="Abs">Abs</option>
+                            <option value="Bike indoor">Bike indoor</option>
+                            <option value="Bike outdoor">Bike outdoor</option>
                             <option value="Circuit">Circuit</option>
                             <option value="Martial arts">Martial arts</option>
                             <option value="Pilates">Pilates</option>
@@ -75,10 +78,14 @@
 </div>
 
 <script>
-
     dateTime = new Date();
 
-    document.getElementById('date').value = `${dateTime.getFullYear()}-${dateTime.getMonth() + 1}-${dateTime.getDate()}`;
+    month = dateTime.getMonth() + 1;
+    if (month < 10) month = '0' + month;
+    day = dateTime.getDate();    
+    if (day < 10) day = '0' + day;
+
+    document.getElementById('date').value = `${dateTime.getFullYear()}-${month}-${day}`;
 
     jQuery(function ($) {
         $("#date").mask("9999-99-99", { autoclear: false });

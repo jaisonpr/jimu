@@ -53,13 +53,14 @@ exports.listMonthly = function (req, res) {
 
     let [year, month, day] = req.params.date.split("=")[1].split("-");
     let lastDay = new Date(year, month, 0).getDate();
-    let startDate = `${year}-${month}-01`;
-    let endDate = `${year}-${month}-${lastDay}`;
+
+    let startDate = `${year}-${month}-01 00:00:00`;
+    let endDate = `${year}-${month}-${lastDay} 23:59:59`;
 
     Workout.find({
         dateTime: {
-            $gte: (new Date(startDate)),
-            $lte: (new Date(endDate))
+            $gte: new Date(startDate),
+            $lte: new Date(endDate)
         }
     }, function (err, workout) {
         if (err)
@@ -67,7 +68,6 @@ exports.listMonthly = function (req, res) {
         res.json(workout);
     });
 };
-
 
 
 exports.listByDate = function (req, res) {
