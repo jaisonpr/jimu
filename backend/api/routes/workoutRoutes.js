@@ -7,7 +7,7 @@ module.exports = function(app) {
     var api = '/api/v1';
 
     app.route(api+'/workouts')
-        .get(controller.listAll)
+        .get(controller.search)
         .post(controller.create);
 
     app.route(api+'/workouts/:workoutId')

@@ -73,3 +73,72 @@ function deleteWorkout(id) {
             console.log("complete");
         });
 }
+
+function filterHistory() {
+
+    console.log("***** history *****");
+
+    let title = document.getElementById('title').value;
+    let dateIni = document.getElementById('dateIni').value;
+    let dateFinal = document.getElementById('dateFinal').value;
+    let local = document.getElementById('local').value;
+    let sport = document.getElementById('sport').value;
+
+    let query = `?title=${title}&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=${local}&sport=${sport}`;
+ 
+    $.ajax({
+        url:  'http://localhost:3000/api/v1/workouts' + query ,
+        type: 'GET',
+        contentType: "application/json",
+        dataType: 'json',
+        async: false,
+
+        })
+        .done(function (data) {
+            console.log("success");
+            sessionStorage.setItem("history_workouts", JSON.stringify(data));
+        })
+        .fail(function () {
+            console.log("error");
+        })
+        .always(function () {
+            console.log("complete");
+    });
+
+    console.log(sessionStorage.getItem("history_workouts"));
+
+    window.location.href = "../pages/history_result.html";
+}
+
+function getMonthlyWorkoutsPerYear() {
+
+    console.log("***** getMonthlyWorkoutsPerYear *****");
+
+    const year = new Date().getFullYear(); 
+
+    let ret = [];
+    for (var month = 1; month <= 12; month++) {
+        let workouts = [];
+    
+        $.ajax({ url:  endpoint + `monthly/date=${year}-${month}-01`,
+                    type: 'GET',
+                    contentType: "application/json",
+                    dataType: 'json',
+                    async: false   
+                }).done(function (data) {
+                    console.log("success");
+                    workouts = data;
+                });
+
+        console.log('workouts '+ workouts);
+        
+        let totalTime = 0;
+        for (var i = 0; i < workouts.length; i++) {
+            totalTime += workouts[i].duration;
+        }
+        totalTime = totalTime / 60;
+        console.log(totalTime);
+        ret.push(totalTime);
+    }
+    return ret;
+}

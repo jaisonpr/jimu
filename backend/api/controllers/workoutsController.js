@@ -5,12 +5,16 @@ var mongoose = require('mongoose'),
 
 
 exports.listAll = function (req, res) {
+
+    console.log('***** listAll *****');
+
     Workout.find({}, function (err, workout) {
         if (err)
             res.send(err);
         res.json(workout);
     });
 };
+
 
 exports.create = function (req, res) {
     var workout = new Workout(req.body);
@@ -24,6 +28,7 @@ exports.create = function (req, res) {
     });
 };
 
+
 exports.getById = function (req, res) {
     Workout.findById(req.params.workoutId, function (err, workout) {
         if (err)
@@ -32,6 +37,7 @@ exports.getById = function (req, res) {
     });
 };
 
+
 exports.edit = function (req, res) {
     Workout.findOneAndUpdate({ _id: req.params.workoutId }, req.body, { new: true }, function (err, workout) {
         if (err)
@@ -39,6 +45,7 @@ exports.edit = function (req, res) {
         res.json(workout);
     });
 };
+
 
 exports.delete = function (req, res) {
     Workout.deleteOne({ _id: req.params.workoutId }, function (err, workout) {
@@ -70,14 +77,30 @@ exports.listMonthly = function (req, res) {
 };
 
 
-exports.listByDate = function (req, res) {
+exports.search = function (req, res) {
 
-    let { startDate, endDate } = req.query;
+    let { title, dateInitial, dateFinal, local, sport } = req.query;
+    let query = {};
 
-    if (startDate === '' || endDate === '') {
-        return res.status(400).json({
-            status: 'failure',
-            message: 'Please ensure you pick two dates'
-        })
+    if (title != '') {
+        query.title = { $regex: '.*' + title + '.*' };
     }
+    if (dateInitial != '')  {
+        query.dateTime = {
+                    $gte: new Date(`${dateInitial} 00:00:00`),
+                    $lte: new Date(`${dateFinal} 23:59:59`)
+                }
+    }
+    if (local != '') query.local = { $regex: '.*' + local + '.*' };
+    if (sport != '') query.sport = { $eq: sport };
+
+    Workout
+        .find( query ) 
+        .sort( { 'dateTime': 'asc' } )
+        .exec( 
+            function(err, workout) {
+                if (err)
+                    res.send(err);
+                res.json(workout);
+        });
 };

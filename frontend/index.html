@@ -27,7 +27,7 @@
 					<a class="nav-link" href="#">Workouts <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">History</a>
+					<a class="nav-link" href="#" id="linkHistory">History</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -37,6 +37,7 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">Summary</a>
 						<a class="dropdown-item" href="#">By Sport</a>
+						<a class="dropdown-item" href="#" id="linkChart">Chart</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Fitness</a>
 					</div>
@@ -50,7 +51,7 @@
 		</div>
 	</nav>
 
-	<div id="crudModal" class="modal fade" role="dialog">
+	<div id="screenModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-lg" role="content">
 			<div class="modal-content">
 			</div>
@@ -100,8 +101,18 @@
 
 		$('#addNewButton').on('click', function (e) {
 			e.preventDefault();
-			$('#crudModal').modal('show').find('.modal-content').load('pages/addNew.html');
+			$('#screenModal').modal('show').find('.modal-content').load('pages/addNew.html');
 		});
+		
+		$('#linkHistory').on('click', function (e) {
+			e.preventDefault();
+			$('#screenModal').modal('show').find('.modal-content').load('pages/history_filter.html');
+		});
+
+		$('#linkChart').on('click', function (e) {
+			window.location.href = "pages/chart.html";
+		});
+
 
 	</script>
 
