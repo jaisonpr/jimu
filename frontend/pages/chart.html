@@ -70,7 +70,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<script>		
-		var workouts = getMonthlyWorkoutsPerYear();
+		//let workouts = getMonthlyWorkoutsPerYear();
 		
 		const labels = [
 			'January',
@@ -92,7 +92,7 @@
 					label: 'Total time',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: workouts
+					data: getMonthlyWorkoutsPerYear()
 				},
 
 				// {

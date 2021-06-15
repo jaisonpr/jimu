@@ -43,16 +43,7 @@
                 <div class="col-form-label col-sm-2 ">Sport</div>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <select name="sport" id="sport" class="form-control" title="Sport">
-                            <option value=""></option>
-                            <option value="Abs">Abs</option>
-                            <option value="Bike indoor">Bike indoor</option>
-                            <option value="Bike outdoor">Bike outdoor</option>
-                            <option value="Circuit">Circuit</option>
-                            <option value="Martial arts">Martial arts</option>
-                            <option value="Pilates">Pilates</option>
-                            <option value="Stretching">Stretching</option>
-                            <option value="Weight">Weight</option>
+                        <select name="sport" id="sport" class="form-control" title="Sport">                            
                         </select>
                     </div>
                 </div>
@@ -63,7 +54,7 @@
         <div class="panel-footer">
             <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary btn-sm ml-1" onclick="filterHistory()"
-                data-dismiss="modal">Filter</button>
+                >Filter</button>
         </div>
     </div>
 </div>
@@ -84,4 +75,17 @@
             $("#dateIni").mask("9999-99-99", { autoclear: false });
             $("#dateFinal").mask("9999-99-99", { autoclear: false });
         });
+
+    let select = document.getElementById("sport");    
+    let el = document.createElement("option");
+        el.textContent = '';
+        el.value = '';
+        select.appendChild(el);
+    
+    for(let i = 0; i < SPORTS.length; i++) {
+        el = document.createElement("option");
+        el.textContent = SPORTS[i];
+        el.value = SPORTS[i];
+        select.appendChild(el);
+    }    
 </script>

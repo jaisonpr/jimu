@@ -92,12 +92,12 @@
 			$('#screenModal').modal('show').find('.modal-content').load('history_filter.html');
 		});
 
-		var workouts = JSON.parse( window.sessionStorage.getItem("history_workouts"));
+		//var workouts = JSON.parse( window.localStorage.getItem("history_workouts"));
 		
 		$(document).ready( function () {
 			$('#myTable').DataTable( {
 				searching: false,
-				data: workouts, 
+				data: JSON.parse( window.localStorage.getItem("history_workouts")), 
 				columns: [
 					{ data: 'dateTime' }, 
 					{ data: 'duration' },

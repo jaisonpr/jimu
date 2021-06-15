@@ -35,7 +35,7 @@
 						Statistics
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">Summary</a>
+						<a class="dropdown-item" href="#" id="linkSummary">Summary</a>
 						<a class="dropdown-item" href="#">By Sport</a>
 						<a class="dropdown-item" href="#" id="linkChart">Chart</a>
 						<div class="dropdown-divider"></div>
@@ -94,9 +94,19 @@
 	<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
 	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="node_modules/jquery.maskedinput/src/jquery.maskedinput.js"></script>
+	<script src="js/constants.js"></script>
 	<script src="js/controller.js"></script>
 	<script src="js/workouts-data.js"></script>
 	<script src="js/workouts-calendar.js"></script>
+
+
+
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+
+
+
 	<script>
 
 		$('#addNewButton').on('click', function (e) {
@@ -107,6 +117,11 @@
 		$('#linkHistory').on('click', function (e) {
 			e.preventDefault();
 			$('#screenModal').modal('show').find('.modal-content').load('pages/history_filter.html');
+		});
+
+		$('#linkSummary').on('click', function (e) {
+			e.preventDefault();
+			$('#screenModal').modal('show').find('.modal-content').load('pages/summary_filter.html');
 		});
 
 		$('#linkChart').on('click', function (e) {

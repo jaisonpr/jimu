@@ -5,9 +5,6 @@ var mongoose = require('mongoose'),
 
 
 exports.listAll = function (req, res) {
-
-    console.log('***** listAll *****');
-
     Workout.find({}, function (err, workout) {
         if (err)
             res.send(err);
@@ -87,9 +84,9 @@ exports.search = function (req, res) {
     }
     if (dateInitial != '')  {
         query.dateTime = {
-                    $gte: new Date(`${dateInitial} 00:00:00`),
-                    $lte: new Date(`${dateFinal} 23:59:59`)
-                }
+            $gte: new Date(`${dateInitial} 00:00:00`),
+            $lte: new Date(`${dateFinal} 23:59:59`)
+        }
     }
     if (local != '') query.local = { $regex: '.*' + local + '.*' };
     if (sport != '') query.sport = { $eq: sport };

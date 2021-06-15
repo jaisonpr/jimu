@@ -54,14 +54,6 @@
                 <div class="col-sm-8">
                     <div class="input-group">
                         <select name="sport" id="sport" class="form-control" title="Sport">
-                            <option value="Abs">Abs</option>
-                            <option value="Bike indoor">Bike indoor</option>
-                            <option value="Bike outdoor">Bike outdoor</option>
-                            <option value="Circuit">Circuit</option>
-                            <option value="Martial arts">Martial arts</option>
-                            <option value="Pilates">Pilates</option>
-                            <option value="Stretching">Stretching</option>
-                            <option value="Weight">Weight</option>
                         </select>
                     </div>
                 </div>
@@ -106,5 +98,15 @@
         $("#time").mask("99:99", { autoclear: false });
         $("#duration").mask("999", { autoclear: false });
     });
+
+
+    let select = document.getElementById("sport");    
+    for(let i = 0; i < SPORTS.length; i++) {
+        let opt = SPORTS[i];
+        let el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    }
 
 </script>
