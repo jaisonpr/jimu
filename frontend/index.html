@@ -10,6 +10,7 @@
 	<link rel="shortcut icon" href="img/favicon.ico" />
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+	<link rel="stylesheet" href="node_modules/datatables.net-dt/css/jquery.dataTables.min.css" />
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/workouts-calendar.css" />
 
@@ -70,13 +71,13 @@
 					<i class="fas fa-angle-right next"></i>
 				</div>
 				<div class="weekdays">
-					<div>Sun</div>
-					<div>Mon</div>
-					<div>Tue</div>
-					<div>Wed</div>
-					<div>Thu</div>
-					<div>Fri</div>
-					<div>Sat</div>
+					<div>Sunday</div>
+					<div>Monday</div>
+					<div>Tuesday</div>
+					<div>Wednesday</div>
+					<div>Thursday</div>
+					<div>Friday</div>
+					<div>Saturday</div>
 				</div>
 				<div class="days"></div>
 			</div>
@@ -94,18 +95,12 @@
 	<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
 	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="node_modules/jquery.maskedinput/src/jquery.maskedinput.js"></script>
+	<script src="node_modules/chart.js/dist/chart.min.js"></script>
+	<script src="node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="js/constants.js"></script>
 	<script src="js/controller.js"></script>
 	<script src="js/workouts-data.js"></script>
 	<script src="js/workouts-calendar.js"></script>
-
-
-
-
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
-
-
 
 	<script>
 
@@ -125,9 +120,9 @@
 		});
 
 		$('#linkChart').on('click', function (e) {
-			window.location.href = "pages/chart.html";
+			e.preventDefault();
+			$('#screenModal').modal('show').find('.modal-content').load('pages/chart.html');
 		});
-
 
 	</script>
 

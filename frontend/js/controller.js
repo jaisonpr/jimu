@@ -23,7 +23,7 @@ function saveWorkout(document, id) {
         .fail(function () {   console.log("error");       })
         .always(function () { console.log("complete");    });
         
-    localStorage.removeItem("workout");
+    sessionStorage.removeItem("workout");
 }
 
 async function loadCalendar(date) {
@@ -41,7 +41,7 @@ async function editWorkout(id) {
     workouts.forEach(w => {
         workout = workouts.find(({ _id }) => _id === id);
     });
-    localStorage.setItem("workout", JSON.stringify(workout));
+    sessionStorage.setItem("workout", JSON.stringify(workout));
 
     $('#screenModal').modal('show').find('.modal-content').load('pages/edit.html');
 }
@@ -87,14 +87,12 @@ function filterHistory() {
     let query = `?title=${title}&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=${local}&sport=${sport}`; 
     let workouts = getAjaxByQuery(query);
 
-    localStorage.setItem("history_workouts", JSON.stringify(workouts));
+    workouts.forEach(w => {
+        w.dateTime = `${w.dateTime.toString().substring(0, 10)} ${w.dateTime.toString().substring(11, 16)}`;
+    });
+    sessionStorage.setItem("history_workouts", JSON.stringify(workouts));
 
-   // window.location.href = "../pages/history_result.html";
-
-    console.log(document.getElementById('screenModal'));
-    console.log( $('#screenModal') );
-
-    $('#screenModal').modal('show').find('.modal-content').load('pages/menu.html');
+    $('#screenModal').modal('show').find('.modal-content').load('pages/history_result.html');
 }
 
 function getMonthlyWorkoutsPerYear() {
@@ -123,6 +121,7 @@ function filterSummary() {
     let dateFinal = document.getElementById('dateFinal').value;
 
     let totalTime = 0;
+    let totalAmount = 0;
     let html = '';
     for (let i = 0; i < SPORTS.length; i++) {
 
@@ -134,14 +133,17 @@ function filterSummary() {
             sumTime += workoutsBySport[j].duration;
         }
         totalTime += sumTime;
+        totalAmount += workoutsBySport.length; 
 
         html += `<tr>
                     <td>${SPORTS[i]}</td>
+                    <td>${workoutsBySport.length}</td>
                     <td>${formatTime(sumTime)}</td>
                 </tr>`;
     }    
     html += `<tr>
                 <td></td>
+                <td>${totalAmount}</td>
                 <td>${formatTime(totalTime)}</td>
             </tr>`;
 

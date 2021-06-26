@@ -1,4 +1,5 @@
 const date = new Date();
+const today = date.getDate();
 
 const renderCalendar = async () => {
     date.setDate(1);
@@ -8,9 +9,7 @@ const renderCalendar = async () => {
 
     /// month's workouts 
     let workouts = await loadCalendar(`${year}-${month}-01`);
-    
-      
-    const monthDays = document.querySelector(".days");
+    //
 
     const lastDay = new Date(
         year,
@@ -34,22 +33,7 @@ const renderCalendar = async () => {
 
     const nextDays = 7 - lastDayIndex - 1;
 
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-
-    document.querySelector(".date h1").innerHTML = months[date.getMonth()];
+    document.querySelector(".date h1").innerHTML = MONTHS[date.getMonth()];
 
     let days = "";
 
@@ -64,6 +48,7 @@ const renderCalendar = async () => {
 
         /// day's workouts 
         let dayObject = getWorkoutsDay(workouts, day);
+        //
 
         let listWorkouts = '';
         dayObject.workouts.forEach ( w => { 
@@ -75,7 +60,7 @@ const renderCalendar = async () => {
 
         days += `
             <div id="day">       
-                <div id="day_number">
+                <div id="${day == today? 'day_today': 'day_number'}">
                     ${day}
                 </div>                  
                 <div id="day_list">
@@ -91,7 +76,7 @@ const renderCalendar = async () => {
 
     for (let j = 1; j <= nextDays; j++) {
         days += `<div class="next-date">${j}</div>`;
-        monthDays.innerHTML = days;
+        document.querySelector(".days").innerHTML = days;
     }
 
     //footer

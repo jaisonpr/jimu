@@ -1,7 +1,7 @@
 .calendar {
   width           : 85rem;
   height          : 45rem;
-  background-color: #222227;
+  background-color: #545458;
   color           : #eee;
   box-shadow      : 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
 }
@@ -97,6 +97,13 @@
 }
 
 #day_number {
+  font-style: italic;
+  font-size : 0.9rem;
+  width     : 7%;
+}
+
+#day_today {
+  color: aqua;
   font-style: italic;
   font-size : 0.9rem;
   width     : 7%;
