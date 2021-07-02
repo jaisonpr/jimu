@@ -70,28 +70,5 @@
 </div>
 
 <script>
-    dateTime = new Date();
-
-    month = dateTime.getMonth() + 1;
-    if (month < 10) month = '0' + month;
-    day = dateTime.getDate();    
-    if (day < 10) day = '0' + day;
-
-    document.getElementById('date').value = `${dateTime.getFullYear()}-${month}-${day}`;
-
-    jQuery(function ($) {
-        $("#date").mask("9999-99-99", { autoclear: false });
-        $("#time").mask("99:99", { autoclear: false });
-        $("#duration").mask("999", { autoclear: false });
-    });
-
-    let select = document.getElementById("sport");    
-    for(let i = 0; i < SPORTS.length; i++) {
-        let opt = SPORTS[i];
-        let el = document.createElement("option");
-        el.textContent = opt;
-        el.value = opt;
-        select.appendChild(el);
-    }
-
+    prepareAddForm();
 </script>

@@ -24,6 +24,8 @@ function saveWorkout(document, id) {
         .always(function () { console.log("complete");    });
         
     sessionStorage.removeItem("workout");
+
+    renderCalendar();
 }
 
 async function loadCalendar(date) {
@@ -149,4 +151,61 @@ function filterSummary() {
 
     document.querySelector("#table-summary-body").innerHTML = html;    
     document.getElementById('div-table-summary').style.visibility = 'visible';
+}
+
+function prepareForm() {
+
+    select = document.getElementById("sport");    
+    for(let i = 0; i < SPORTS.length; i++) {
+        let opt = SPORTS[i];
+        let el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    }
+
+    jQuery(function ($) {
+        $("#date").mask("9999-99-99", { autoclear: false });
+        $("#time").mask("99:99", { autoclear: false });
+        $("#duration").mask("999", { autoclear: false });
+    });
+}
+
+
+function prepareAddForm() {
+    dateTime = new Date();
+
+    month = dateTime.getMonth() + 1;
+    if (month < 10) month = '0' + month;
+    day = dateTime.getDate();    
+    if (day < 10) day = '0' + day;
+
+    document.getElementById('date').value = `${dateTime.getFullYear()}-${month}-${day}`;
+
+    prepareForm();
+}
+
+function prepareEditForm() {
+
+    if (sessionStorage.getItem("workout")) {
+        workout = JSON.parse(sessionStorage.getItem("workout"));
+        dateTime = new Date(workout.dateTime);
+
+        document.getElementById('title').value = workout.title;
+        document.getElementById('date').value = `${dateTime.getFullYear()}-${formatTwoDigits(dateTime.getMonth() + 1)}-${formatTwoDigits(dateTime.getDate())}`;
+        document.getElementById('time').value = `${formatTwoDigits(dateTime.getUTCHours())}:${formatTwoDigits(dateTime.getUTCMinutes())}`;
+        document.getElementById('duration').value = (workout.duration < 100 ? '0' : '') + workout.duration;
+        document.getElementById('sport').value = workout.sport;
+        document.getElementById('local').value = workout.local;
+
+        
+        $('#bDelete').click( function() {
+            if ( confirm('Are you sure?')) {
+                deleteWorkout(workout._id);
+                renderCalendar();
+            }
+        });
+    }
+
+    prepareForm();
 }
