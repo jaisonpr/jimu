@@ -2,6 +2,7 @@ const date = new Date();
 const today = date.getDate();
 
 const renderCalendar = async () => {
+
     date.setDate(1);
 
     const year = date.getFullYear(); 
@@ -76,8 +77,9 @@ const renderCalendar = async () => {
 
     for (let j = 1; j <= nextDays; j++) {
         days += `<div class="next-date">${j}</div>`;
-        document.querySelector(".days").innerHTML = days;
     }
+   
+    document.querySelector(".days").innerHTML = days;
 
     //footer
     document.querySelector("#workouts_month").innerHTML = workouts_month;
