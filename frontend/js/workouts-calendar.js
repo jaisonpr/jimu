@@ -1,5 +1,5 @@
 const date = new Date();
-const today = date.getDate();
+const today = new Date();
 
 const renderCalendar = async () => {
 
@@ -61,7 +61,7 @@ const renderCalendar = async () => {
 
         days += `
             <div id="day">       
-                <div id="${day == today? 'day_today': 'day_number'}">
+                <div id="${( today.getMonth() === date.getMonth() && day === today.getDate() ) ? 'day_today': 'day_number'}">
                     ${day}
                 </div>                  
                 <div id="day_list">
