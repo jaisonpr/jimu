@@ -1,5 +1,5 @@
-
 const endpoint = "http://localhost:3000/api/v1/workouts/";
+let chartSports;
 
 function jsonString(document) {
     return ` {
@@ -50,8 +50,8 @@ async function editWorkout(id) {
 
 function deleteWorkout(id) {
     $.ajax({
-        url: endpoint + id,
-        type: 'DELETE'
+            url: endpoint + id,
+            type: 'DELETE'
         })
         .done(function ()   {   console.log("success");     })
         .fail(function ()   {   console.log("error");       })
@@ -62,11 +62,11 @@ function deleteWorkout(id) {
 function getAjaxByQuery(query) {
     let ret = [];
     $.ajax({
-        url:  endpoint + query ,
-        type: 'GET',
-        contentType: "application/json",
-        dataType: 'json',
-        async: false,
+            url:  endpoint + query ,
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            async: false,
         })
         .done(function (data) {
             ret = data;
@@ -153,7 +153,7 @@ function filterSummary() {
     document.getElementById('div-table-summary').style.visibility = 'visible';
 }
 
-function prepareForm() {
+function populateSportSelect() {
 
     select = document.getElementById("sport");    
     for(let i = 0; i < SPORTS.length; i++) {
@@ -163,6 +163,11 @@ function prepareForm() {
         el.value = opt;
         select.appendChild(el);
     }
+}
+
+
+function prepareForm() {
+    populateSportSelect();
 
     jQuery(function ($) {
         $("#date").mask("9999-99-99", { autoclear: false });
@@ -197,7 +202,6 @@ function prepareEditForm() {
         document.getElementById('duration').value = (workout.duration < 100 ? '0' : '') + workout.duration;
         document.getElementById('sport').value = workout.sport;
         document.getElementById('local').value = workout.local;
-
         
         $('#bDelete').click( function() {
             if ( confirm('Are you sure?')) {
@@ -208,4 +212,70 @@ function prepareEditForm() {
     }
 
     prepareForm();
+}
+
+
+
+function getWorkoutsMonth(monthIni, monthEnd, sport) {
+    
+    let workoutsMonth =[];
+
+    for ( let m = monthIni; m <= monthEnd; m++) {
+        let dtMonthIni = `2021-${m}-01`;
+        let dtMonthEnd = `2021-${m}-${ new Date('2021', (m - 1), 0).getDate()}`;
+        let query = `?title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`;
+        let workoutsBySport = getAjaxByQuery(query);
+        let sumTime = 0;
+        for (let j = 0; j < workoutsBySport.length; j++) {
+            sumTime += workoutsBySport[j].duration;
+        }
+        workoutsMonth.push(sumTime/60);
+    }
+    return workoutsMonth;
+}
+
+
+function chartBySport(sports) {
+
+    let dateIni = document.getElementById('dateIni').value;
+    let dateFinal = document.getElementById('dateFinal').value;
+    let datasets = [];
+
+    //label
+    let labels = [];    
+    monthIni = parseInt( dateIni.substring(5, 7) ) -1;
+    monthEnd = parseInt( dateFinal.substring(5, 7) ) -1;
+    for ( let m = monthIni; m <= monthEnd; m++) {
+        labels.push( MONTHS[m] ); 
+    }
+
+    //data    
+    monthIni++;
+    monthEnd++;
+    for (let i = 0; i < sports.length; i++) {
+        let sport = { 
+            label: sports[i],  
+            backgroundColor: SPORTS_COLORS[ SPORTS.indexOf( sports[i] ) ], 
+            borderColor: SPORTS_COLORS[ SPORTS.indexOf( sports[i] ) ], 
+            data: getWorkoutsMonth(monthIni, monthEnd, sports[i])
+        };        
+        datasets.push( sport );
+    }
+ 
+    if (chartSports) {
+        chartSports.destroy();
+    }
+    chartSports = new Chart(
+		document.getElementById('chartSports'),
+		{
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {}
+        }
+	);
+    
+    document.getElementById('div-chart').style.visibility = 'visible';
 }

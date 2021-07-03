@@ -37,8 +37,8 @@
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#" id="linkSummary">Summary</a>
-						<a class="dropdown-item" href="#">By Sport</a>
-						<a class="dropdown-item" href="#" id="linkChart">Chart</a>
+						<a class="dropdown-item" href="#" id="linkChartSports">By Sport</a>
+						<a class="dropdown-item" href="#" id="linkChartTime">Chart</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Fitness</a>
 					</div>
@@ -119,9 +119,14 @@
 			$('#screenModal').modal('show').find('.modal-content').load('pages/summary_filter.html');
 		});
 
-		$('#linkChart').on('click', function (e) {
+		$('#linkChartTime').on('click', function (e) {
 			e.preventDefault();
-			$('#screenModal').modal('show').find('.modal-content').load('pages/chart.html');
+			$('#screenModal').modal('show').find('.modal-content').load('pages/chart_time.html');
+		});
+
+		$('#linkChartSports').on('click', function (e) {
+			e.preventDefault();
+			$('#screenModal').modal('show').find('.modal-content').load('pages/chart_sports.html');
 		});
 
 	</script>
