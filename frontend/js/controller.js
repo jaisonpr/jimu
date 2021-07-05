@@ -143,14 +143,17 @@ function filterSummary() {
                     <td>${formatTime(sumTime)}</td>
                 </tr>`;
     }    
-    html += `<tr>
-                <td></td>
-                <td>${totalAmount}</td>
-                <td>${formatTime(totalTime)}</td>
-            </tr>`;
-
+    
     document.querySelector("#table-summary-body").innerHTML = html;    
-    document.getElementById('div-table-summary').style.visibility = 'visible';
+    document.getElementById('div-table-summary').style.display = "";
+    
+    $('#total').html(`workouts: <b>${totalAmount}</b> time: <b>${formatTime(totalTime)}</b>`);
+
+    if ( $.fn.dataTable.isDataTable( '#table-summary' ) ) {
+        table = $('#table-summary').DataTable();
+    } else {
+        table = $('#table-summary').DataTable( { searching: false, paging: false, info: false } );
+    }
 }
 
 function populateSportSelect() {
@@ -277,5 +280,5 @@ function chartBySport(sports) {
         }
 	);
     
-    document.getElementById('div-chart').style.visibility = 'visible';
+    document.getElementById('div-chart').style.display = "";
 }

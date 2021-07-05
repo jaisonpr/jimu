@@ -1,10 +1,29 @@
+<style>
+    .amount {
+      display: block;
+      border-top: 5px solid #969696;
+      background-color: #63b87d;
+      height: 35px;
+      line-height: 30px;
+      padding: 4px 6px;
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 13px;
+      clear: both;
+    }    
+    .amount .total {
+      float: right;
+    }
+  </style>
+
 <div class="modal-header">
-    <h4 class="modal-title">Summary</h4>
+    <span class="modal-title">Summary</span>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
     
 <div class="modal-body">
     <form id="formAddNew">
+
         <div class="form-group row">
             <label for="date" class="col-md-2 col-form-label">Date</label>
             <div class="col-sm-4">
@@ -18,16 +37,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="cbAdvanced" value="option1">
+            <label class="form-check-label" for="cbAdvanced">Advanced</label>
+        </div>          
+
     </form>
     <div class="modal-footer">
         <div class="panel-footer">
             <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary btn-sm ml-1" onclick="filterSummary()"
-                >Filter</button>
+            <button type="button" class="btn btn-primary btn-sm ml-1" onclick="filterSummary()">Filter</button>
         </div>
     </div>
-    <div class="form-group row" id="div-table-summary" style="visibility: hidden;">
-        <table class="table" id="table-summary">
+    <div id="div-table-summary" style="display:none;">
+        <table id="table-summary" class="display" style="width:100%">
             <thead>
               <tr>
                 <th scope="col">Sport</th>
@@ -38,6 +62,11 @@
             <tbody id="table-summary-body">             
             </tbody>
         </table>
+
+        <div class="amount">
+            <span id="total" class="total"></span>
+        </div>
+
     </div>
 </div>
 
