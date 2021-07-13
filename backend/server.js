@@ -6,6 +6,7 @@ const
 
   
 const Workout = require('./api/models/workout');
+const BodyMeasurement = require('./api/models/bodyMeasurement');
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.connect('mongodb://localhost:27017/jimu-db')
@@ -30,8 +31,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-var routes = require('./api/routes/workoutRoutes'); 
-routes(app); 
+let workoutRoutes = require('./api/routes/workoutRoutes'); 
+workoutRoutes(app); 
+
+let bodyMeasurementRoutes = require('./api/routes/bodyMeasurementRoutes'); 
+bodyMeasurementRoutes(app); 
 
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})

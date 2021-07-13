@@ -14,11 +14,7 @@ exports.listAll = function (req, res) {
 
 
 exports.create = function (req, res) {
-    var workout = new Workout(req.body);
-
-    console.log(workout);
-
-    workout.save(function (err, workout) {
+    ( new Workout(req.body)).save(function (err, workout) {
         if (err)
             res.send(err);
         res.json(workout);
