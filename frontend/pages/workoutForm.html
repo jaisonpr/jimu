@@ -1,10 +1,10 @@
 <div class="modal-header">
-    <span class="modal-title">Edit </span>
+    <span class="modal-title">Workout</span>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
 
 <div class="modal-body">
-    <form id="formEdit">
+    <form id="formAddNew">
         <div class="form-group">
             <div class="row">
                 <div class="col-form-label col-sm-2 ">Title</div>
@@ -53,7 +53,7 @@
                 <div class="col-form-label col-sm-2 ">Sport</div>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <select name="sport" id="sport" class="form-control" title="Sport">
+                        <select name="sport" id="sport" class="form-control" title="Sport">                           
                         </select>
                     </div>
                 </div>
@@ -62,15 +62,9 @@
     </form>
     <div class="modal-footer">
         <div class="panel-footer">
-            <button id="bDelete" type="button" class="btn btn-danger btn-sm ml-1"  data-dismiss="modal" >Delete</button>
-            <button type="button" class="btn btn-secondary btn-sm ml-1" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary btn-sm ml-1" data-dismiss="modal"
-                onclick="saveWorkout(document, workout._id)">Save</button>
+            <button id="btnDelete" type="button" class="btn btn-danger btn-sm ml-1" style="display: none;" data-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
+            <button id="btnSave" type="button" class="btn btn-primary btn-sm ml-1" data-dismiss="modal">Save</button>
         </div>
     </div>
 </div>
-
-
-<script>
-    prepareEditForm();
-</script>

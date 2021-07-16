@@ -1,3 +1,5 @@
+'use strict';
+
 const MONTHS = [
     "January",
     "February",
@@ -34,3 +36,7 @@ const SPORTS_COLORS = [
     "rgb(216, 250, 148)",
     "rgb(91, 87, 179)"
 ];
+
+export { MONTHS };
+export { SPORTS };
+export { SPORTS_COLORS };
