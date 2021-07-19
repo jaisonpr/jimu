@@ -39,8 +39,7 @@
     <div class="modal-footer">
         <div class="panel-footer">
             <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary btn-sm ml-1" onclick="chartBySport($('#sport').val())"
-                >Filter</button>
+            <button id="btnFilter" type="button" class="btn btn-primary btn-sm ml-1">Filter</button>
         </div>
     </div>
 
@@ -48,31 +47,3 @@
         <canvas id="chartSports"></canvas>        
     </div>
 </div>
-
-<script>
-    populateSportSelect();
-
-    dateTime = new Date();
-
-    month = dateTime.getMonth() + 1;
-    if (month < 10) month = '0' + month;
-
-    document.getElementById('dateIni').value = '2021-01';
-    document.getElementById('dateFinal').value = `${dateTime.getFullYear()}-${month}`;
-
-
-    jQuery(function ($) {
-            $("#dateIni").mask("9999-99", { autoclear: false });
-            $("#dateFinal").mask("9999-99", { autoclear: false });
-        });
-
-    $('#btnAll').on('click', function (e) {
-        $("#sport option").prop("selected", true);
-    });
-
-    $('#btnClean').on('click', function (e) {
-        $("#sport option:selected").prop("selected", false);
-    });
-
-	
-</script>

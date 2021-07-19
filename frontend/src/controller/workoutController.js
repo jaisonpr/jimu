@@ -2,9 +2,7 @@
 import { BaseController } from './base.js';
 import { renderCalendar, jsonString, initForm } from './workoutHelper.js';
 
-
-const base = new BaseController();
-const ENDPOINT = base.getEndpoint() + 'workouts/';
+const ENDPOINT = BaseController.getEndpoint() + 'workouts/';
 
 var loadCalendarMonth = (async function (date) {
     return $.getJSON(ENDPOINT + 'monthly/date=' + date, function (data) {
@@ -57,7 +55,6 @@ class WorkoutController {
         sessionStorage.removeItem("workout");
         WorkoutController.makeCalendar();
     }
-
 
 }
 export { WorkoutController };

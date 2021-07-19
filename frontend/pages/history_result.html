@@ -16,20 +16,3 @@
         </thead>
     </table>
 </div>
-
-
-<script>		
-    $(document).ready( function () {
-        $('#tableHistory').DataTable( {
-            searching: false,
-            data: JSON.parse( window.sessionStorage.getItem("history_workouts")), 
-            columns: [
-                { data: 'dateTime' }, 
-                { data: 'title' },
-                { data: 'duration' },
-                { data: 'local' },
-                { data: 'sport' }
-            ]
-        } );
-    } );
-</script>

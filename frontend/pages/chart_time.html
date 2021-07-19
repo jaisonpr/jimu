@@ -8,30 +8,3 @@
 		<canvas id="chartTime"></canvas>
 	</div>
 </div>
-
-
-<script>		
-
-	const data = {
-		labels: MONTHS,
-		datasets: [
-			{
-				label: 'Total time',
-				backgroundColor: 'rgb(175, 0, 0)',
-				borderColor: 'rgb(175, 0, 0)',
-				data: getMonthlyWorkoutsPerYear()
-			}
-		]
-	};
-	const config = {
-		type: 'line',
-		data,
-		options: {}
-	};
-
-	var chartTime = new Chart(
-		document.getElementById('chartTime'),
-		config
-	);
-
-</script>
