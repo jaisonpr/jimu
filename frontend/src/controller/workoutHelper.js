@@ -85,38 +85,35 @@ function jsonString(document) {
 
 function initForm(action) {
     populateSportSelect();
+    let id = 0
     if (action == 'add') {
 
         let dateTime = new Date();
-
         let month = dateTime.getMonth() + 1;
         if (month < 10) month = '0' + month;
         let day = dateTime.getDate();
         if (day < 10) day = '0' + day;
         document.getElementById('date').value = `${dateTime.getFullYear()}-${month}-${day}`;
-
-        $('#btnSave').on('click', function (e) {
-            WorkoutController.save(document, 0);
-        });
         
     } else if (action == 'edit') {
 
         let workout = JSON.parse(sessionStorage.getItem("workout"));
+        id = workout._id;
 
         workoutToDocument(workout);
 
         $('#btnDelete').click(function () {
             if (confirm('Are you sure?')) {
-                WorkoutController.delete(workout._id);
+                WorkoutController.delete(id);
             }
         });
-
-        $('#btnSave').on('click', function (e) {
-            WorkoutController.save(document, workout._id);
-        });
-
         document.getElementById('btnDelete').style.display = "";
     }
+    
+    $('#btnSave').on('click', function (e) {
+        WorkoutController.save(document, id);
+    });
+
     jQuery(function ($) {
         $("#date").mask("9999-99-99", { autoclear: false });
         $("#time").mask("99:99", { autoclear: false });

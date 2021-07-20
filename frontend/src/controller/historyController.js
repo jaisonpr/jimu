@@ -71,12 +71,13 @@ class HistoryController {
         workouts.forEach(w => {
             w.dateTime = `${w.dateTime.toString().substring(0, 10)} ${w.dateTime.toString().substring(11, 16)}`;
         });
-        sessionStorage.setItem("history_workouts", JSON.stringify(workouts));
-
-        $('#screenModal').modal('show').find('.modal-content').load('pages/history_result.html', function () {
-            $('#tableHistory').DataTable( {
+            
+        if ( $.fn.dataTable.isDataTable( '#table-history' ) ) {
+            $('#table-history').DataTable();
+        } else {
+            $('#table-history').DataTable( {
                 searching: false,
-                data: JSON.parse( window.sessionStorage.getItem("history_workouts")), 
+                data: JSON.parse( JSON.stringify(workouts)), 
                 columns: [
                     { data: 'dateTime' }, 
                     { data: 'title' },
@@ -85,7 +86,8 @@ class HistoryController {
                     { data: 'sport' }
                 ]
             }) 
-        });   
+        }
+        document.getElementById('div-table-history').style.display = "";
     }
 }
 export { HistoryController };
