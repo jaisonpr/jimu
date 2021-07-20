@@ -1,30 +1,7 @@
 'use strict';
 import { BaseController } from './base.js';
 import { populateSportSelect } from './workoutHelper.js';
-import { MONTHS, SPORTS } from '../constants.js';
-import { formatTime } from '../util.js';
 
-
-
-const ENDPOINT = BaseController.getEndpoint() + 'workouts/';
-
-function getAjaxByQuery(query) {
-    let ret = [];
-    $.ajax({
-            url:  ENDPOINT + query ,
-            type: 'GET',
-            contentType: "application/json",
-            dataType: 'json',
-            async: false,
-        })
-        .done(function (data) {
-            ret = data;
-        })
-        .fail(function () {   console.log("error");       })
-        .always(function () { console.log("complete");    });
-
-    return ret;
-}
 
 class HistoryController {
 
@@ -65,8 +42,8 @@ class HistoryController {
         let local = document.getElementById('local').value;
         let sport = document.getElementById('sport').value;
 
-        let query = `?title=${title}&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=${local}&sport=${sport}`; 
-        let workouts = getAjaxByQuery(query);
+        let query = `title=${title}&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=${local}&sport=${sport}`; 
+        let workouts = BaseController.getByQuery('workouts', query);
 
         workouts.forEach(w => {
             w.dateTime = `${w.dateTime.toString().substring(0, 10)} ${w.dateTime.toString().substring(11, 16)}`;

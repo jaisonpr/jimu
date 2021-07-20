@@ -2,37 +2,12 @@
 import { BaseController } from './base.js';
 import { renderCalendar, jsonString, initForm } from './workoutHelper.js';
 
-const ENDPOINT = BaseController.getEndpoint() + 'workouts/';
-
 var loadCalendarMonth = (async function (date) {
-    return $.getJSON(ENDPOINT + 'monthly/date=' + date, function (data) {
+    let url = `${BaseController.getEndpoint()}/workouts/monthly/date=${date}`;
+    return $.getJSON(url, function (data) {
         sessionStorage.setItem("workouts", JSON.stringify(data));
     });
 });
-
-var sendDelete = function (id) {
-    $.ajax({
-        url: ENDPOINT + id,
-        type: 'DELETE'
-    })
-        .done(function () { console.log("deleteWorkout:success"); })
-        .fail(function () { console.log("deleteWorkout:error"); })
-        .always(function () { console.log("deleteWorkout:complete"); });
-}
-
-var sendSave = function(document, id) {
-    $.ajax({
-        url: ENDPOINT + (id === 0 ? '' : id),
-        type: id === 0 ? 'POST' : 'PUT',
-        contentType: "application/json",
-        dataType: 'json',
-        data: jsonString(document)
-    })
-        .done(function () { console.log("success"); })
-        .fail(function () { console.log("error"); })
-        .always(function () { console.log("complete"); });
-}
-
 
 
 class WorkoutController {
@@ -46,12 +21,12 @@ class WorkoutController {
     }
 
     static delete(id) {
-        sendDelete(id);
+        BaseController.sendDelete('workouts', id);
         WorkoutController.makeCalendar();
     }
 
     static save(document, id) {
-        sendSave(document, id);
+        BaseController.sendSave('workouts', jsonString(document), id);
         sessionStorage.removeItem("workout");
         WorkoutController.makeCalendar();
     }

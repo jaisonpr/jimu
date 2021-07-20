@@ -43,7 +43,7 @@ async function editWorkout(id) {
     });
     sessionStorage.setItem("workout", JSON.stringify(workout));
 
-    $('#screenModal').modal('show').find('.modal-content').load('pages/workoutForm.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/workout.html', function() {
         WorkoutController.initForm('edit');
     });    
 }
@@ -59,7 +59,7 @@ function workoutToDocument(workout) {
     document.getElementById('local').value = workout.local;
 }
 
-// -- export functions --
+// -- exported functions --
 
 function populateSportSelect() {
 

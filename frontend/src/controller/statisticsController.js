@@ -4,28 +4,7 @@ import { populateSportSelect } from './workoutHelper.js';
 import { MONTHS, SPORTS, SPORTS_COLORS } from '../constants.js';
 import { formatTime } from '../util.js';
 
-
-
-const ENDPOINT = BaseController.getEndpoint() + 'workouts/';
 let chartSports;
-
-function getAjaxByQuery(query) {
-    let ret = [];
-    $.ajax({
-            url:  ENDPOINT + query ,
-            type: 'GET',
-            contentType: "application/json",
-            dataType: 'json',
-            async: false,
-        })
-        .done(function (data) {
-            ret = data;
-        })
-        .fail(function () {   console.log("error");       })
-        .always(function () { console.log("complete");    });
-
-    return ret;
-}
 
 function getMonthlyWorkoutsPerYear() {
 
@@ -34,8 +13,8 @@ function getMonthlyWorkoutsPerYear() {
     let ret = [];
     for (var month = 1; month <= 12; month++) {
 
-        let query = `monthly/date=${year}-${month}-01`;
-        let workouts = getAjaxByQuery(query);
+        let url = `${BaseController.getEndpoint()}/workouts/monthly/date=${year}-${month}-01`;
+        let workouts = BaseController.getURL(url);
         
         let totalTime = 0;
         for (var i = 0; i < workouts.length; i++) {
@@ -54,8 +33,9 @@ function getWorkoutsMonth(monthIni, monthEnd, sport) {
     for ( let m = monthIni; m <= monthEnd; m++) {
         let dtMonthIni = `2021-${m}-01`;
         let dtMonthEnd = `2021-${m}-${ new Date('2021', (m - 1), 0).getDate()}`;
-        let query = `?title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`;
-        let workoutsBySport = getAjaxByQuery(query);
+        let query = `title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`;
+        let workoutsBySport = BaseController.getByQuery('workouts', query);
+        
         let sumTime = 0;
         for (let j = 0; j < workoutsBySport.length; j++) {
             sumTime += workoutsBySport[j].duration;
@@ -64,7 +44,6 @@ function getWorkoutsMonth(monthIni, monthEnd, sport) {
     }
     return workoutsMonth;
 }
-
 
 
 class StatisticsController {
@@ -80,7 +59,6 @@ class StatisticsController {
 
         document.getElementById('dateIni').value = '2021-01-01';
         document.getElementById('dateFinal').value = `${dateTime.getFullYear()}-${month}-${day}`;
-
 
         jQuery(function ($) {
                 $("#dateIni").mask("9999-99-99", { autoclear: false });
@@ -101,8 +79,8 @@ class StatisticsController {
         let html = '';
         for (let i = 0; i < SPORTS.length; i++) {
     
-            let query = `?title=&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=&sport=${SPORTS[i]}`;
-            let workoutsBySport = getAjaxByQuery(query);
+            let query = `title=&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=&sport=${SPORTS[i]}`;
+            let workoutsBySport = BaseController.getByQuery('workouts', query);
     
             let sumTime = 0;
             for (let j = 0; j < workoutsBySport.length; j++) {
