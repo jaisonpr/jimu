@@ -2,7 +2,7 @@
 import { BaseController } from './base.js';
 import { populateSportSelect } from './workoutHelper.js';
 import { MONTHS, SPORTS, SPORTS_COLORS } from '../constants.js';
-import { formatTime } from '../util.js';
+import { formatTime, formatTwoDigits } from '../util.js';
 
 let chartSports;
 
@@ -13,8 +13,7 @@ function getMonthlyWorkoutsPerYear() {
     let ret = [];
     for (var month = 1; month <= 12; month++) {
 
-        let url = `${BaseController.getEndpoint()}/workouts/monthly/date=${year}-${month}-01`;
-        let workouts = BaseController.getURL(url);
+        let workouts = BaseController.getByParam('workouts/monthly', `date=${year}-${month}-01`);
         
         let totalTime = 0;
         for (var i = 0; i < workouts.length; i++) {
@@ -33,8 +32,8 @@ function getWorkoutsMonth(monthIni, monthEnd, sport) {
     for ( let m = monthIni; m <= monthEnd; m++) {
         let dtMonthIni = `2021-${m}-01`;
         let dtMonthEnd = `2021-${m}-${ new Date('2021', (m - 1), 0).getDate()}`;
-        let query = `title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`;
-        let workoutsBySport = BaseController.getByQuery('workouts', query);
+        let workoutsBySport = BaseController.getByQuery('workouts', 
+            `title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`);
         
         let sumTime = 0;
         for (let j = 0; j < workoutsBySport.length; j++) {
@@ -51,36 +50,28 @@ class StatisticsController {
     static initSummaryForm() {
 
         let dateTime = new Date();
-
-        let month = dateTime.getMonth() + 1;
-        if (month < 10) month = '0' + month;
-        let day = dateTime.getDate();    
-        if (day < 10) day = '0' + day;
-
-        document.getElementById('dateIni').value = '2021-01-01';
-        document.getElementById('dateFinal').value = `${dateTime.getFullYear()}-${month}-${day}`;
-
-        jQuery(function ($) {
-                $("#dateIni").mask("9999-99-99", { autoclear: false });
-                $("#dateFinal").mask("9999-99-99", { autoclear: false });
-            });
+        let month = formatTwoDigits( dateTime.getMonth() + 1);
+        let day = formatTwoDigits( dateTime.getDate());
         
+        $('#dateIni').val('2021-01-01');
+        $('#dateFinal').val(`${dateTime.getFullYear()}-${month}-${day}`);
+        $("#dateIni").mask("9999-99", { autoclear: false });
+        $("#dateFinal").mask("9999-99", { autoclear: false });    
+
         $('#btnFilter').on('click', function (e) {
             StatisticsController.summarize();
         });
     }
 
-    static summarize() {
-        let dateIni = document.getElementById('dateIni').value;
-        let dateFinal = document.getElementById('dateFinal').value;
+    static summarize() {        
     
         let totalTime = 0;
         let totalAmount = 0;
-        let html = '';
+        let html_table_body = '';
         for (let i = 0; i < SPORTS.length; i++) {
     
-            let query = `title=&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=&sport=${SPORTS[i]}`;
-            let workoutsBySport = BaseController.getByQuery('workouts', query);
+            let workoutsBySport = BaseController.getByQuery('workouts', 
+                `title=&dateInitial=${$('#dateIni').val()}&dateFinal=${$('#dateFinal').val()}&local=&sport=${SPORTS[i]}`);
     
             let sumTime = 0;
             for (let j = 0; j < workoutsBySport.length; j++) {
@@ -89,16 +80,16 @@ class StatisticsController {
             totalTime += sumTime;
             totalAmount += workoutsBySport.length; 
     
-            html += `<tr>
-                        <td>${SPORTS[i]}</td>
-                        <td>${workoutsBySport.length}</td>
-                        <td>${formatTime(sumTime)}</td>
-                    </tr>`;
+            html_table_body += `
+                <tr>
+                    <td>${SPORTS[i]}</td>
+                    <td>${workoutsBySport.length}</td>
+                    <td>${formatTime(sumTime)}</td>
+                </tr>`;
         }    
-        
-        document.querySelector("#table-summary-body").innerHTML = html;    
-        document.getElementById('div-table-summary').style.display = "";
-        
+                
+        $("#div-table-summary").show();     
+        $('#table-summary-body').html(html_table_body);   
         $('#total').html(`workouts: <b>${totalAmount}</b> time: <b>${formatTime(totalTime)}</b>`);
             
         if ( $.fn.dataTable.isDataTable( '#table-summary' ) ) {
@@ -128,7 +119,7 @@ class StatisticsController {
         };
     
         var chartTime = new Chart(
-            document.getElementById('chartTime'),
+            $('#chartTime'),
             config
         );
     }
@@ -138,17 +129,11 @@ class StatisticsController {
 
         let dateTime = new Date();
 
-        let month = dateTime.getMonth() + 1;
-        if (month < 10) month = '0' + month;
-
-        document.getElementById('dateIni').value = '2021-01';
-        document.getElementById('dateFinal').value = `${dateTime.getFullYear()}-${month}`;
-
-        jQuery(function ($) {
-            $("#dateIni").mask("9999-99", { autoclear: false });
-            $("#dateFinal").mask("9999-99", { autoclear: false });
-        });
-
+        $('#dateIni').val('2021-01'); 
+        $('#dateFinal').val(`${dateTime.getFullYear()}-${ formatTwoDigits(dateTime.getMonth() + 1) }`); 
+        $("#dateIni").mask("9999-99", { autoclear: false });
+        $("#dateFinal").mask("9999-99", { autoclear: false }); 
+    
         $('#btnAll').on('click', function (e) {
             $("#sport option").prop("selected", true);
         });
@@ -163,20 +148,17 @@ class StatisticsController {
     }
 
     static chartBySport(sports) {
-
-        let dateIni = document.getElementById('dateIni').value;
-        let dateFinal = document.getElementById('dateFinal').value;
-        let datasets = [];
     
         //label
         let labels = [];    
-        let monthIni = parseInt( dateIni.substring(5, 7) ) -1;
-        let monthEnd = parseInt( dateFinal.substring(5, 7) ) -1;
+        let monthIni = parseInt( $('#dateIni').val().substring(5, 7) ) -1;
+        let monthEnd = parseInt( $('#dateFinal').val().substring(5, 7) ) -1;
         for ( let m = monthIni; m <= monthEnd; m++) {
             labels.push( MONTHS[m] ); 
         }
     
         //data    
+        let datasets = [];
         monthIni++;
         monthEnd++;
         for (let i = 0; i < sports.length; i++) {
@@ -193,7 +175,7 @@ class StatisticsController {
             chartSports.destroy();
         }
         chartSports = new Chart(
-            document.getElementById('chartSports'),
+            $('#chartSports'),
             {
                 type: 'bar',
                 data: {
@@ -204,7 +186,7 @@ class StatisticsController {
             }
         );
         
-        document.getElementById('div-chart').style.display = "";
+        $("#div-chart").show();     
     }
 }
 export { StatisticsController };

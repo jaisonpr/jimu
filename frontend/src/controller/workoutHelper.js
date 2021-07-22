@@ -51,35 +51,34 @@ async function editWorkout(id) {
 function workoutToDocument(workout) {
     let dateTime = new Date(workout.dateTime);
     
-    document.getElementById('title').value = workout.title;
-    document.getElementById('date').value = `${dateTime.getFullYear()}-${formatTwoDigits(dateTime.getMonth() + 1)}-${formatTwoDigits(dateTime.getDate())}`;
-    document.getElementById('time').value = `${formatTwoDigits(dateTime.getUTCHours())}:${formatTwoDigits(dateTime.getUTCMinutes())}`;
-    document.getElementById('duration').value = (workout.duration < 100 ? '0' : '') + workout.duration;
-    document.getElementById('sport').value = workout.sport;
-    document.getElementById('local').value = workout.local;
+    $('#title').val(workout.title); 
+    $('#date').val(`${dateTime.getFullYear()}-${formatTwoDigits(dateTime.getMonth() + 1)}-${formatTwoDigits(dateTime.getDate())}`); 
+    $('#time').val(`${formatTwoDigits(dateTime.getUTCHours())}:${formatTwoDigits(dateTime.getUTCMinutes())}`); 
+    $('#duration').val((workout.duration < 100 ? '0' : '') + workout.duration); 
+    $('#sport').val(workout.sport); 
+    $('#local').val(workout.local); 
 }
 
 // -- exported functions --
 
-function populateSportSelect() {
+function populateSportSelect(firstBlank) {
+    if (firstBlank) {
+        $("#sport").append(new Option("", ""));
+    }
 
-    let select = document.getElementById("sport");    
     for(let i = 0; i < SPORTS.length; i++) {
         let opt = SPORTS[i];
-        let el = document.createElement("option");
-        el.textContent = opt;
-        el.value = opt;
-        select.appendChild(el);
+        $("#sport").append(new Option(opt, opt));
     }
 }
 
-function jsonString(document) {
+function jsonString() {
     return ` {
-        "title"     : "${document.getElementById('title').value}",
-        "dateTime"  : "${document.getElementById('date').value + "T" + document.getElementById('time').value + ":00.000Z"}",
-        "duration"  : "${document.getElementById('duration').value}",
-        "sport"     : "${document.getElementById('sport').value}",
-        "local"     : "${document.getElementById('local').value}"
+        "title"     : "${$('title').val()}",
+        "dateTime"  : "${$('date').val() + "T" + $('time').val() + ":00.000Z"}",
+        "duration"  : "${$('duration').val()}",
+        "sport"     : "${$('sport').val()}",
+        "local"     : "${$('local').val()}"
     }` ;
 }
 
@@ -89,11 +88,11 @@ function initForm(action) {
     if (action == 'add') {
 
         let dateTime = new Date();
-        let month = dateTime.getMonth() + 1;
-        if (month < 10) month = '0' + month;
-        let day = dateTime.getDate();
-        if (day < 10) day = '0' + day;
-        document.getElementById('date').value = `${dateTime.getFullYear()}-${month}-${day}`;
+        let month = formatTwoDigits(dateTime.getMonth() + 1);
+        let day = formatTwoDigits(dateTime.getDate());    
+
+        $('#date').val(`${dateTime.getFullYear()}-${month}-${day}`); 
+        $("#btnDelete").removeAttr("style").hide();
         
     } else if (action == 'edit') {
 
@@ -107,18 +106,16 @@ function initForm(action) {
                 WorkoutController.delete(id);
             }
         });
-        document.getElementById('btnDelete').style.display = "";
+        $('btnDelete').show();
     }
     
     $('#btnSave').on('click', function (e) {
         WorkoutController.save(document, id);
     });
 
-    jQuery(function ($) {
-        $("#date").mask("9999-99-99", { autoclear: false });
-        $("#time").mask("99:99", { autoclear: false });
-        $("#duration").mask("999", { autoclear: false });
-    });
+    $("#date").mask("9999-99-99", { autoclear: false });
+    $("#time").mask("99:99", { autoclear: false });
+    $("#duration").mask("999", { autoclear: false });
 }
 
 
@@ -144,12 +141,12 @@ const renderCalendar = async (load) => {
     const lastDayIndex = new Date(year, month, 0).getDay();
     const nextDays = 7 - lastDayIndex - 1;
 
-    document.querySelector(".date h1").innerHTML = MONTHS[date.getMonth()];
+    $(".date h1").html(MONTHS[date.getMonth()]);
 
-    let days = "";
+    let html_days = "";
 
     for (let x = firstDayIndex; x > 0; x--) {
-        days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
+        html_days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
     }
 
     let workouts_month = 0;
@@ -161,22 +158,22 @@ const renderCalendar = async (load) => {
         let dayObject = getWorkoutsDay(workouts, day);
         //
 
-        let listWorkouts = '';
+        let li_workouts = '';
         dayObject.workouts.forEach ( w => { 
-            listWorkouts += `<li id="${w._id}" class="wd">${w.sport}</li>`; 
+            li_workouts += `<li id="${w._id}" class="wd">${w.sport}</li>`; 
         } );
 
         workouts_month += dayObject.workouts.length;
         time_workouts_month += dayObject.sum;
 
-        days += `
+        html_days += `
             <div id="day">       
                 <div id="${( today.getMonth() === date.getMonth() && day === today.getDate() ) ? 'day_today': 'day_number'}">
                     ${day}
                 </div>                  
                 <div id="day_list">
                     <ul>
-                        ${listWorkouts}
+                        ${li_workouts}
                     </ul> 
                 </div>                  
                 <div id="day_hours">
@@ -186,31 +183,28 @@ const renderCalendar = async (load) => {
     }
 
     for (let j = 1; j <= nextDays; j++) {
-        days += `<div class="next-date">${j}</div>`;
+        html_days += `<div class="next-date">${j}</div>`;
     }
    
-    document.querySelector(".days").innerHTML = days;
+    $(".days").html(html_days);
 
     //footer
-    document.querySelector("#workouts_month").innerHTML = workouts_month;
-    document.querySelector("#time_workouts_month").innerHTML = formatTime(time_workouts_month);
+    $('#workouts_month').html(workouts_month);   
+    $('#time_workouts_month').html( formatTime(time_workouts_month));   
 
-    let workoutsListDay = document.querySelectorAll("li.wd");    
-    for (var i = 0; i < workoutsListDay.length; i++) {        
-        let id = workoutsListDay[i].id;
-        
-        workoutsListDay[i].addEventListener("click", () => {
-            editWorkout( id );
+    $("li.wd").each( function(){
+        $(this).on("click", function(){
+            editWorkout( this.id );
         });
-    }
+    });
 };
 
-document.querySelector(".prev").addEventListener("click", () => {
+$(".prev").click( () => {
     date.setMonth(date.getMonth() - 1);
     renderCalendar(loadMethod);
 });
 
-document.querySelector(".next").addEventListener("click", () => {
+$(".next").click( () => {
     date.setMonth(date.getMonth() + 1);
     renderCalendar(loadMethod);
 });

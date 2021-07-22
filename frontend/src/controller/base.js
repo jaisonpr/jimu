@@ -35,6 +35,10 @@ class BaseController {
         return this.getURL(`${ENDPOINT}/${resource}/?${query}`);
     }
 
+    static getByParam(resource, param) {
+        return this.getURL(`${ENDPOINT}/${resource}/${param}`);
+    }
+
     static getURL(url) {
         let ret = [];
         $.ajax({
