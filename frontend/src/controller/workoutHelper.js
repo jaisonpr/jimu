@@ -65,11 +65,9 @@ function populateSportSelect(firstBlank) {
     if (firstBlank) {
         $("#sport").append(new Option("", ""));
     }
-
-    for(let i = 0; i < SPORTS.length; i++) {
-        let opt = SPORTS[i];
-        $("#sport").append(new Option(opt, opt));
-    }
+    SPORTS.forEach(s => {
+        $("#sport").append(new Option(s, s));
+    });
 }
 
 function jsonString() {

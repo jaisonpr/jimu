@@ -24,15 +24,14 @@ class HistoryController {
         });
     }
 
-    static filter() {
-        let title = $('#title').val(); 
-        let dateIni = $('#dateIni').val(); 
-        let dateFinal = $('#dateFinal').val(); 
-        let local = $('#local').val(); 
-        let sport = $('#sport').val(); 
+    static filter() { 
 
         let workouts = BaseController.getByQuery('workouts', 
-            `title=${title}&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=${local}&sport=${sport}`);
+            `title=${$('#title').val() }&`+
+            `dateInitial=${$('#dateIni').val()}&`+
+            `dateFinal=${$('#dateFinal').val()}&`+
+            `local=${$('#local').val()}&`+
+            `sport=${$('#sport').val()}`);
 
         workouts.forEach(w => {
             w.dateTime = `${w.dateTime.toString().substring(0, 10)} ${w.dateTime.toString().substring(11, 16)}`;
