@@ -26,7 +26,7 @@ class HistoryController {
 
     static filter() { 
 
-        let workouts = BaseController.getByQuery('workouts', 
+        let workouts = BaseController.sendQuery('workouts', 
             `title=${$('#title').val() }&`+
             `dateInitial=${$('#dateIni').val()}&`+
             `dateFinal=${$('#dateFinal').val()}&`+

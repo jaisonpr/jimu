@@ -31,11 +31,11 @@ class BaseController {
         .always(function () { console.log("sendSave:complete"); });
     }
 
-    static getByQuery(resource, query) {
+    static sendQuery(resource, query) {
         return this.getURL(`${ENDPOINT}/${resource}/?${query}`);
     }
 
-    static getByParam(resource, param) {
+    static sendParam(resource, param) {
         return this.getURL(`${ENDPOINT}/${resource}/${param}`);
     }
 

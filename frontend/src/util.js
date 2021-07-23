@@ -12,3 +12,6 @@ export function formatTime(num) {
     return formatTwoDigits(rhours) + ":" + formatTwoDigits(rminutes);
 };
 
+export function month(str) {
+    return parseInt(str.substring(5, 7));
+}

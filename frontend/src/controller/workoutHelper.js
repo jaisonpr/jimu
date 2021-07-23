@@ -109,8 +109,7 @@ function initForm(action) {
     
     $('#btnSave').on('click', function (e) {
         WorkoutController.save(document, id);
-    });
-
+    });    
     $("#date").mask("9999-99-99", { autoclear: false });
     $("#time").mask("99:99", { autoclear: false });
     $("#duration").mask("999", { autoclear: false });
@@ -185,16 +184,14 @@ const renderCalendar = async (load) => {
     }
    
     $(".days").html(html_days);
-
-    //footer
-    $('#workouts_month').html(workouts_month);   
-    $('#time_workouts_month').html( formatTime(time_workouts_month));   
-
     $("li.wd").each( function(){
         $(this).on("click", function(){
             editWorkout( this.id );
         });
     });
+    //footer
+    $('#workouts_month').html(workouts_month);   
+    $('#time_workouts_month').html( formatTime(time_workouts_month));   
 };
 
 $(".prev").click( () => {
