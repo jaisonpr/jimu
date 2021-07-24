@@ -72,13 +72,14 @@ function populateSportSelect(firstBlank) {
 
 function jsonString() {
     return ` {
-        "title"     : "${$('title').val()}",
-        "dateTime"  : "${$('date').val() + "T" + $('time').val() + ":00.000Z"}",
-        "duration"  : "${$('duration').val()}",
-        "sport"     : "${$('sport').val()}",
-        "local"     : "${$('local').val()}"
+        "title"     : "${$('#title').val()}",
+        "dateTime"  : "${$('#date').val() + "T" + $('#time').val() + ":00.000Z"}",
+        "duration"  : "${$('#duration').val()}",
+        "sport"     : "${$('#sport').val()}",
+        "local"     : "${$('#local').val()}"
     }` ;
 }
+
 
 function initForm(action) {
     populateSportSelect();
@@ -108,7 +109,7 @@ function initForm(action) {
     }
     
     $('#btnSave').on('click', function (e) {
-        WorkoutController.save(document, id);
+        WorkoutController.save(id);
     });    
     $("#date").mask("9999-99-99", { autoclear: false });
     $("#time").mask("99:99", { autoclear: false });

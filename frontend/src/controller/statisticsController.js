@@ -2,57 +2,38 @@
 import { BaseController } from './base.js';
 import { populateSportSelect } from './workoutHelper.js';
 import { MONTHS, SPORTS, SPORTS_COLORS } from '../constants.js';
-import { formatTime, formatTwoDigits, month } from '../util.js';
+import { formatTime, formatTwoDigits, month, arrayMonths } from '../util.js';
 
 let chartSports;
 let durationWorkouts = function(sum, {duration}) { return sum + duration; };
 
-
-function getWorkouts(month, sport) {
-    let dtMonthIni = `2021-${month}-01`;
-    let dtMonthEnd = `2021-${month}-${ new Date('2021', (month - 1), 0).getDate()}`;
-    return BaseController.sendQuery('workouts', `title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`); 
-}
-
 function dataChartTime() {
-
     const year = new Date().getFullYear(); 
-
     let ret = [];
-    for (var month = 1; month <= 12; month++) {
+    for (let month = 1; month <= 12; month++) {
         let workouts = BaseController.sendParam('workouts/monthly', `date=${year}-${month}-01`);        
         ret.push( workouts.reduce( durationWorkouts, 0) / 60);
     }
     return ret;
 }
 
-function dataChartBySport(monthIni, monthEnd, sport) {
-    
+function dataChartBySport(monthIni, monthEnd, sport) {    
+    console.log(`${monthIni} ${monthEnd} ${sport}`);
     let ret =[];
-
-    for ( let m = monthIni; m <= monthEnd; m++) {        
-        let workouts = getWorkouts(m, sport);
+    for (let month = monthIni; month <= monthEnd; month++) {        
+        let dtMonthIni = `2021-${month}-01`;
+        let dtMonthEnd = `2021-${month}-${ new Date('2021', (month - 1), 0).getDate()}`;
+        let workouts =  BaseController.sendQuery('workouts', `title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`); 
         ret.push( workouts.reduce( durationWorkouts, 0) / 60);
     }
     return ret;
 }
 
-function dataSummary(monthIni, monthEnd, sport) {
-    
-    let ret =[];
-
-    for ( let m = monthIni; m <= monthEnd; m++) {             
-        let workouts = getWorkouts(m, sport);
-        let objret = {
-            sport: sport,
-            count: workouts.length,
-            time: workouts.reduce( durationWorkouts, 0)
-        }; 
-        ret.push(objret);
-    }
-    return ret;
+function dataSummary(dateIni, dateFinal) {    
+    dateIni = `${dateIni}-01`;
+    dateFinal = `${dateFinal}-${ new Date('2021', month(dateFinal), 0).getDate()}`;
+    return BaseController.sendQuery('workouts', `title=&dateInitial=${dateIni}&dateFinal=${dateFinal}&local=&sport=`); 
 }
-
 
 
 class StatisticsController {
@@ -91,34 +72,27 @@ class StatisticsController {
 
     static summarize() {        
     
-        let totalTime = 0;
-        let totalCount = 0;
+        let totalTime = 0, totalCount = 0;
         let html_table_body = '';
 
         SPORTS.forEach(sport => {
+            let count = 0, time = 0;
+            let data = dataSummary( $('#dateIni').val(), $('#dateFinal').val() );
+            let filterWorkouts =  w => { return w.sport[0] === sport; };  
+                              
+            count += data.filter( filterWorkouts ).length;
+            totalCount += count;
+            time += data.filter( filterWorkouts ).reduce( durationWorkouts, 0);   
+            totalTime += time;
             
-            let workoutTimes = dataSummary(
-                month($('#dateIni').val()), 
-                month($('#dateFinal').val()), 
-                sport);
-            
-            let countWorkout = 0;
-            let timeWorkout = 0;
-            workoutTimes.forEach(w => {               
-                timeWorkout += w.time;
-                countWorkout += w.count;
-            });
-            totalTime += timeWorkout;
-            totalCount += countWorkout;
-
             html_table_body += `
                 <tr>
                     <td>${sport}</td>
-                    <td>${countWorkout}</td>
-                    <td>${formatTime(timeWorkout)}</td>
+                    <td>${count}</td>
+                    <td>${formatTime(time)}</td>
                 </tr>`;
-        });
-                
+        });    
+
         $("#div-table-summary").show();     
         $('#table-summary-body').html(html_table_body);   
         $('#total').html(`workouts: <b>${totalCount}</b> time: <b>${formatTime(totalTime)}</b>`);
@@ -155,30 +129,20 @@ class StatisticsController {
         );
     }
 
-
     static chartBySport(sports) {
-    
-        //label
-        let labels = [];    
-        let monthIni = month($('#dateIni').val()) -1;
-        let monthEnd = month($('#dateFinal').val()) -1;
-        for ( let m = monthIni; m <= monthEnd; m++) {
-            labels.push( MONTHS[m] ); 
-        }
-    
-        //data    
-        let datasets = [];
-        monthIni++;
-        monthEnd++;
-        for (let i = 0; i < sports.length; i++) {
-            let sport = { 
-                label: sports[i],  
-                backgroundColor: SPORTS_COLORS[ SPORTS.indexOf( sports[i] ) ], 
-                borderColor: SPORTS_COLORS[ SPORTS.indexOf( sports[i] ) ], 
-                data: dataChartBySport(monthIni, monthEnd, sports[i])
-            };        
-            datasets.push( sport );
-        }
+      
+        let monthIni = month($('#dateIni').val());
+        let monthEnd = month($('#dateFinal').val());
+        let data = [];
+        
+        sports.forEach(sport => {
+            data.push( { 
+                label: sport,  
+                backgroundColor: SPORTS_COLORS[ SPORTS.indexOf(sport) ], 
+                borderColor: SPORTS_COLORS[ SPORTS.indexOf(sport) ], 
+                data: dataChartBySport(monthIni, monthEnd, sport)
+            });
+        });
      
         if (chartSports) {
             chartSports.destroy();
@@ -188,8 +152,8 @@ class StatisticsController {
             {
                 type: 'bar',
                 data: {
-                    labels: labels,
-                    datasets: datasets
+                    labels: arrayMonths(monthIni, monthEnd),
+                    datasets: data
                 },
                 options: {}
             }

@@ -25,8 +25,8 @@ class WorkoutController {
         WorkoutController.makeCalendar();
     }
 
-    static save(document, id) {
-        BaseController.sendSave('workouts', jsonString(document), id);
+    static save(id) {
+        BaseController.sendSave('workouts', jsonString(), id);
         sessionStorage.removeItem("workout");
         WorkoutController.makeCalendar();
     }

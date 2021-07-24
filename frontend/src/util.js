@@ -1,4 +1,5 @@
 'use strict';
+import { MONTHS } from './constants.js';
   
 export function formatTwoDigits(num) {
     return (num < 10 ? '0' : '') + num;
@@ -14,4 +15,12 @@ export function formatTime(num) {
 
 export function month(str) {
     return parseInt(str.substring(5, 7));
+}
+
+export function arrayMonths(monthIni, monthEnd) {
+    let months = []; monthIni--; monthEnd--;
+    for ( let m = monthIni; m <= monthEnd; m++) {
+        months.push( MONTHS[m] ); 
+    }
+    return months;
 }
