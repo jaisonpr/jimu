@@ -1,5 +1,5 @@
 'use strict';
-import { formatTwoDigits } from '../util.js';
+import { formatTwoDigits, month } from '../util.js';
 import { BaseController } from './base.js';
 import { populateSportSelect } from './workoutHelper.js';
 
@@ -25,11 +25,12 @@ class HistoryController {
     }
 
     static filter() { 
-
+        let dateIni = `${$('#dateIni').val()}-01`;
+        let dateFinal = `${$('#dateFinal').val()}-${ new Date('2021', month($('#dateFinal').val()), 0).getDate()}`;
         let workouts = BaseController.sendQuery('workouts', 
             `title=${$('#title').val() }&`+
-            `dateInitial=${$('#dateIni').val()}&`+
-            `dateFinal=${$('#dateFinal').val()}&`+
+            `dateInitial=${dateIni}&`+
+            `dateFinal=${dateFinal}&`+
             `local=${$('#local').val()}&`+
             `sport=${$('#sport').val()}`);
 

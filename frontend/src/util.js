@@ -17,6 +17,10 @@ export function month(str) {
     return parseInt(str.substring(5, 7));
 }
 
+export function year(str) {
+    return parseInt(str.substring(0, 4));
+}
+
 export function arrayMonths(monthIni, monthEnd) {
     let months = []; monthIni--; monthEnd--;
     for ( let m = monthIni; m <= monthEnd; m++) {
