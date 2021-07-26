@@ -1,7 +1,8 @@
 'use strict';
 import { WorkoutController } from './workoutController.js';
 import { formatTime, formatTwoDigits } from '../util.js';
-import { MONTHS, SPORTS } from '../constants.js';
+import { populateSportSelect } from './formHelper.js';
+import { MONTHS } from '../constants.js';
 
 const date = new Date();
 const today = new Date();
@@ -60,15 +61,6 @@ function workoutToDocument(workout) {
 }
 
 // -- exported functions --
-
-function populateSportSelect(firstBlank) {
-    if (firstBlank) {
-        $("#sport").append(new Option("", ""));
-    }
-    SPORTS.forEach(s => {
-        $("#sport").append(new Option(s, s));
-    });
-}
 
 function jsonString() {
     return ` {
@@ -206,7 +198,6 @@ $(".next").click( () => {
 });
 
 
-export { populateSportSelect };
 export { initForm };
 export { jsonString };
 export { workoutToDocument };

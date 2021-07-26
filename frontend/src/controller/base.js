@@ -51,8 +51,8 @@ class BaseController {
         .done(function (data) {
             ret = data;
         })
-        .fail(function () {   console.log("error");       })
-        .always(function () { console.log("complete");    });
+        .fail(function () {   console.log("getURL:error");       })
+        .always(function () { console.log("getURL:complete");    });
     
         return ret;
     }
