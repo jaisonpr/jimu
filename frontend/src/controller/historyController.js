@@ -1,7 +1,7 @@
 'use strict';
 import { BaseController } from './base.js';
 import { basicFilterForm } from './formHelper.js';
-import { populateSportSelect, formatInitialDate, formatFinalDate } from './formHelper.js';
+import { populateSportSelect, formatInitialDate, formatFinalDate, formatDateTime } from './formHelper.js';
 
 
 class HistoryController {
@@ -23,17 +23,19 @@ class HistoryController {
             `dateFinal=${formatFinalDate($('#dateFinal').val())}&`+
             `local=${$('#local').val()}&`+
             `sport=${$('#sport').val()}`);
-
-        workouts.forEach(w => {
-            w.dateTime = `${w.dateTime.toString().substring(0, 10)} ${w.dateTime.toString().substring(11, 16)}`;
+  
+        workouts.map( function(w) { 
+            w.dateTime = formatDateTime(w.dateTime);
+            return w; 
         });
             
+        $('#table-history').DataTable().destroy();
         if ( $.fn.dataTable.isDataTable( '#table-history' ) ) {
             $('#table-history').DataTable();
         } else {
             $('#table-history').DataTable( {
                 searching: false,
-                data: JSON.parse( JSON.stringify(workouts)), 
+                data: workouts, 
                 columns: [
                     { data: 'dateTime' }, 
                     { data: 'title' },

@@ -30,3 +30,7 @@ export function formatFinalDate() {
     let date = $('#dateFinal').val();
     return `${date}-${ new Date(year(date), month(date), 0).getDate()}`;
 }
+
+export function formatDateTime(dateTime) {
+    return `${dateTime.toString().substring(0, 10)} ${dateTime.toString().substring(11, 16)}`;
+}
