@@ -16,8 +16,8 @@ class WorkoutController {
         renderCalendar(loadCalendarMonth);
     }
 
-    static initForm(action) {
-        initForm(action);
+    static initForm(action, workout) {
+        initForm(action, workout);
     }
 
     static delete(id) {
@@ -27,7 +27,6 @@ class WorkoutController {
 
     static save(id) {
         BaseController.sendSave('workouts', jsonString(), id);
-        sessionStorage.removeItem("workout");
         WorkoutController.makeCalendar();
     }
 

@@ -1,6 +1,8 @@
 import { WorkoutController } from '../src/controller/workoutController.js';
 import { HistoryController } from '../src/controller/historyController.js';
 import { StatisticsController } from '../src/controller/statisticsController.js';
+import { MeasurementsController } from '../src/controller/measurementsController.js';
+
 
 $('#linkHistory').on('click', function (e) {
     e.preventDefault();
@@ -30,12 +32,18 @@ $('#linkChartSports').on('click', function (e) {
     });    
 });
 
+$('#linkMeasurementsWeight').on('click', function (e) {
+    e.preventDefault();
+    $('#screenModal').modal('show').find('.modal-content').load('pages/weight_list.html', function() {
+        MeasurementsController.initWeight();
+    });    
+});
+
 $('#btnNewWorkout').on('click', function (e) {
     e.preventDefault();
     $('#screenModal').modal('show').find('.modal-content').load('pages/workout.html', function() {
         WorkoutController.initForm('add');
     });    
 });
-
 
 WorkoutController.makeCalendar();

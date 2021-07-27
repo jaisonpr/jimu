@@ -47,3 +47,26 @@ exports.delete = function (req, res) {
         res.json({ message: 'BodyMeasurement successfully deleted' });
     });
 };
+
+
+exports.search = function (req, res) {
+    let { dateInitial, dateFinal } = req.query;
+    let query = {};
+
+    if (dateInitial != '')  {
+        query.date = {
+            $gte: new Date(`${dateInitial} 00:00:00`),
+            $lte: new Date(`${dateFinal} 23:59:59`)
+        }
+    }
+
+    BodyMeasurement
+        .find( query ) 
+        .sort( { 'date': 'asc' } )
+        .exec( 
+            function(err, obj) {
+                if (err)
+                    res.send(err);
+                res.json(obj);
+        });
+};

@@ -8,7 +8,7 @@ class BaseController {
         return ENDPOINT;
     }
 
-    static sendDelete(resource, id) {        
+    static sendDelete(resource, id) {  
         $.ajax({
             url: `${ENDPOINT}/${resource}/${id}`,
             type: 'DELETE'
@@ -18,13 +18,13 @@ class BaseController {
         .always(function () { console.log("sendDelete:complete"); });
     }
     
-    static sendSave(resource, json, id) {  
+    static sendSave(resource, data, id) {  
         $.ajax({
             url: `${ENDPOINT}/${resource}/${ (id === 0 ? '' : id) }`,
             type: id === 0 ? 'POST' : 'PUT',
             contentType: "application/json",
             dataType: 'json',
-            data: json
+            data: data
         })
         .done(function () { console.log("sendSave:success"); })
         .fail(function () { console.log("sendSave:error"); })
@@ -40,6 +40,7 @@ class BaseController {
     }
 
     static getURL(url) {
+        console.log('URL: ' + url);
         let ret = [];
         $.ajax({
             url: url,

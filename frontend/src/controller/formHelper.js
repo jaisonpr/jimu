@@ -34,3 +34,7 @@ export function formatFinalDate() {
 export function formatDateTime(dateTime) {
     return `${dateTime.toString().substring(0, 10)} ${dateTime.toString().substring(11, 16)}`;
 }
+
+export function formatDate(dateTime) {
+    return `${dateTime.toString().substring(0, 10)}`;
+}

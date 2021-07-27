@@ -2,12 +2,12 @@
 
 module.exports = function(app) {
 
-    var controller = require('../controllers/bodyMeasurementController');
+    let controller = require('../controllers/bodyMeasurementController');
 
-    var api = '/api/v1';
+    let api = '/api/v1';
 
     app.route(api+'/bodyMeasurements')
-        .get(controller.listAll)
+        .get(controller.search) 
         .post(controller.create);
 
     app.route(api+'/bodyMeasurements/:bodyMeasurementId')

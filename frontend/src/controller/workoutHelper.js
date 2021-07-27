@@ -37,15 +37,10 @@ function getWorkoutsDay(workouts, day) {
 async function editWorkout(id) {
 
     let workouts = JSON.parse(sessionStorage.getItem("workouts"));
-    let workout;
-
-    workouts.forEach(w => {
-        workout = workouts.find(({ _id }) => _id === id);
-    });
-    sessionStorage.setItem("workout", JSON.stringify(workout));
+    let workout = workouts.find(({ _id }) => _id === id);
 
     $('#screenModal').modal('show').find('.modal-content').load('pages/workout.html', function() {
-        WorkoutController.initForm('edit');
+        WorkoutController.initForm('edit', workout);
     });    
 }
 
@@ -73,7 +68,7 @@ function jsonString() {
 }
 
 
-function initForm(action) {
+function initForm(action, workout) {
     populateSportSelect();
     let id = 0
     if (action == 'add') {
@@ -86,8 +81,6 @@ function initForm(action) {
         $("#btnDelete").removeAttr("style").hide();
         
     } else if (action == 'edit') {
-
-        let workout = JSON.parse(sessionStorage.getItem("workout"));
         id = workout._id;
 
         workoutToDocument(workout);

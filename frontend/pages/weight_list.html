@@ -2,13 +2,12 @@
 <script src="node_modules/jquery.maskedinput/src/jquery.maskedinput.js"></script>
 
 <div class="modal-header">
-    <span class="modal-title">Summary</span>
+    <span class="modal-title">Weight</span>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
     
 <div class="modal-body">
     <form id="form">
-
         <div class="form-group row">
             <label for="date" class="col-md-2 col-form-label">Date</label>
             <div class="col-sm-4">
@@ -22,34 +21,24 @@
                 </div>
             </div>
         </div>
-
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="cbAdvanced" value="option1">
-            <label class="form-check-label" for="cbAdvanced">Advanced</label>
-        </div>          
-
     </form>
     <div class="modal-footer">
-        <div class="panel-footer">
-            <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
-            <button id="btnFilter" type="button" class="btn btn-primary btn-sm ml-1">Filter</button>            
+        <div class="panel-footer">    
+            <button type="button" class="btn btn-secondary btn-sm " data-dismiss="modal">Cancel</button>
+            <button id="btnFilter" type="button" class="btn btn-primary btn-sm ">Filter</button>     
+            <button id="btnNew" type="button" class="btn btn-success btn-sm ">New</button>        
         </div>
     </div>
-    <div id="div-table-summary" style="display:none;">
-        <table id="table-summary" class="display" style="width:100%">
+    <div id="div-table-weight" style="display:none;">
+        <table id="table-weight" class="display" style="width:100%">
             <thead>
               <tr>
-                <th scope="col">Sport</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Time</th>
+                <th scope="col">Date</th>
+                <th scope="col">Weight</th>
               </tr>
             </thead>
-            <tbody id="table-summary-body">             
+            <tbody id="table-weight-body">             
             </tbody>
         </table>
-
-        <div class="amount">
-            <span id="total" class="total"></span>
-        </div>
     </div>
 </div>
