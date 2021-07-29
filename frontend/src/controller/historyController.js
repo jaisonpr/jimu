@@ -1,7 +1,7 @@
 'use strict';
 import { BaseController } from './base.js';
 import { basicFilterForm } from './formHelper.js';
-import { populateSportSelect, formatInitialDate, formatFinalDate, formatDateTime } from './formHelper.js';
+import { populateSportSelect, formatInitialDate, formatFinalDate, formatDate } from './formHelper.js';
 
 
 class HistoryController {
@@ -25,7 +25,7 @@ class HistoryController {
             `sport=${$('#sport').val()}`);
   
         workouts.map( function(w) { 
-            w.dateTime = formatDateTime(w.dateTime);
+            w.dateTime = formatDate(w.dateTime);
             return w; 
         });
             
@@ -43,7 +43,7 @@ class HistoryController {
                     { data: 'local' },
                     { data: 'sport' }
                 ]
-            }) 
+            });
         }
         $('#div-table-history').show();
     }

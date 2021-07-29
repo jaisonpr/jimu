@@ -50,7 +50,7 @@ exports.delete = function (req, res) {
 
 
 exports.search = function (req, res) {
-    let { dateInitial, dateFinal } = req.query;
+    let { dateInitial, dateFinal, onlyWeight } = req.query;
     let query = {};
 
     if (dateInitial != '')  {
@@ -59,6 +59,7 @@ exports.search = function (req, res) {
             $lte: new Date(`${dateFinal} 23:59:59`)
         }
     }
+    query.bmi = (onlyWeight === 'true') ? { $eq : 0 } : { $gt : 0 } ;
 
     BodyMeasurement
         .find( query ) 

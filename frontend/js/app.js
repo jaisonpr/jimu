@@ -32,6 +32,13 @@ $('#linkChartSports').on('click', function (e) {
     });    
 });
 
+$('#linkMeasurementsBody').on('click', function (e) {
+    e.preventDefault();
+    $('#screenModal').modal('show').find('.modal-content').load('pages/body_list.html', function() {
+        MeasurementsController.initBody();
+    });    
+});
+
 $('#linkMeasurementsWeight').on('click', function (e) {
     e.preventDefault();
     $('#screenModal').modal('show').find('.modal-content').load('pages/weight_list.html', function() {
@@ -39,9 +46,16 @@ $('#linkMeasurementsWeight').on('click', function (e) {
     });    
 });
 
+$('#linkMeasurementFitness').on('click', function (e) {
+    e.preventDefault();
+    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_fitness', function() {
+        MeasurementsController.chartFitness();
+    });    
+});
+
 $('#btnNewWorkout').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/workout.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/workout_form.html', function() {
         WorkoutController.initForm('add');
     });    
 });

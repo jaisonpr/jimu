@@ -1,8 +1,8 @@
 'use strict';
-import { WorkoutController } from './workoutController.js';
-import { formatTime, formatTwoDigits } from '../util.js';
-import { populateSportSelect } from './formHelper.js';
-import { MONTHS } from '../constants.js';
+import { WorkoutController } from '../workoutController.js';
+import { formatTime, formatTwoDigits } from '../../util.js';
+import { populateSportSelect } from '../formHelper.js';
+import { MONTHS } from '../../constants.js';
 
 const date = new Date();
 const today = new Date();
@@ -39,7 +39,7 @@ async function editWorkout(id) {
     let workouts = JSON.parse(sessionStorage.getItem("workouts"));
     let workout = workouts.find(({ _id }) => _id === id);
 
-    $('#screenModal').modal('show').find('.modal-content').load('pages/workout.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/workout_form.html', function() {
         WorkoutController.initForm('edit', workout);
     });    
 }

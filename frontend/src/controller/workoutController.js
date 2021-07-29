@@ -1,6 +1,6 @@
 'use strict';
 import { BaseController } from './base.js';
-import { renderCalendar, jsonString, initForm } from './workoutHelper.js';
+import { renderCalendar, jsonString, initForm } from './helper/workoutHelper.js';
 
 var loadCalendarMonth = (async function (date) {
     let url = `${BaseController.getEndpoint()}/workouts/monthly/date=${date}`;

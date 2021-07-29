@@ -7,6 +7,9 @@ var BodyMeasurement = new Schema({
     type: Date,
     required: 'Enter the date'
   },
+  age: {
+    type: Number
+  },
   height: {
     type: Number
   },
@@ -18,9 +21,6 @@ var BodyMeasurement = new Schema({
     type: Number
   },
   chest: {
-    type: Number
-  },
-  abdomen: {
     type: Number
   },
   waist: {
@@ -39,6 +39,15 @@ var BodyMeasurement = new Schema({
     type: Number
   },
   calf: {
+    type: Number
+  },
+  bmi: {
+    type: Number
+  },
+  bfp: {
+    type: Number
+  },
+  bfp_navy: {
     type: Number
   },
   Created_date: {

@@ -1,6 +1,6 @@
 'use strict';
 
-const MONTHS = [
+export const MONTHS = [
     "January",
     "February",
     "March",
@@ -15,7 +15,7 @@ const MONTHS = [
     "December",
 ];
 
-const SPORTS = [
+export const SPORTS = [
     "Abs",
     "Bike indoor",
     "Bike outdoor",
@@ -26,7 +26,7 @@ const SPORTS = [
     "Weight"
 ];
 
-const SPORTS_COLORS = [
+export const SPORTS_COLORS = [
     "rgb(197, 210, 0)",
     "rgb(197, 210, 231)",
     "rgb(197, 210, 255)",
@@ -37,6 +37,5 @@ const SPORTS_COLORS = [
     "rgb(91, 87, 179)"
 ];
 
-export { MONTHS };
-export { SPORTS };
-export { SPORTS_COLORS };
+export const AGE = 39;
+export const HEIGHT = 178;
