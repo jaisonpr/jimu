@@ -20,10 +20,14 @@ export const SPORTS = [
     "Bike indoor",
     "Bike outdoor",
     "Circuit",
+    "Hiking",
     "Martial arts",
     "Pilates",
     "Stretching",
-    "Weight"
+	"Swimming", 
+    "Walking",
+    "Weight",
+    "Yoga"
 ];
 
 export const SPORTS_COLORS = [
