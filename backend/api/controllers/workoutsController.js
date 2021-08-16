@@ -69,6 +69,30 @@ exports.listMonthly = function (req, res) {
     });
 };
 
+exports.totalAnnual = function (req, res) {
+    
+    let year = req.params.year;
+    let startDate = `${year}-01-01 00:00:00`;
+    let endDate = `${year}-12-31 23:59:59`;
+
+    Workout.aggregate(
+        [            
+            { $match: {
+                dateTime: { $gte: new Date(startDate), $lte: new Date(endDate)  } }
+            },
+            { $group: {
+                _id: null,
+                count: { $sum: 1 },
+                totalDuration: { $sum: '$duration' }
+            }}
+        ], 
+        function (err, result) {
+            if (err)
+                res.send(err);
+            res.json(result);
+        });
+};
+
 
 exports.search = function (req, res) {
 

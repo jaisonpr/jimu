@@ -18,10 +18,17 @@ $('#linkSummary').on('click', function (e) {
     });    
 });
 
-$('#linkChartTime').on('click', function (e) {
+$('#linkChartTimeMonthly').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_time.html', function() {
-        StatisticsController.initChartTime();
+    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_time_monthly.html', function() {
+        StatisticsController.initChartTimeMonthly();
+    });    
+});
+
+$('#linkChartTimeAnnual').on('click', function (e) {
+    e.preventDefault();
+    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_time_annual.html', function() {
+        StatisticsController.initChartTimeAnnual();
     });    
 });
 

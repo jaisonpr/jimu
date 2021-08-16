@@ -40,7 +40,6 @@ class BaseController {
     }
 
     static getURL(url) {
-        console.log('URL: ' + url);
         let ret = [];
         $.ajax({
             url: url,

@@ -17,4 +17,7 @@ module.exports = function(app) {
     
     app.route(api+'/workouts/monthly/:date')
         .get(controller.listMonthly);
+    
+    app.route(api+'/workouts/annual/total/:year')
+        .get(controller.totalAnnual);
 };

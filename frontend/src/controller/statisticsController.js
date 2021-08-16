@@ -17,6 +17,14 @@ function dataChartTime() {
     return ret;
 }
 
+function dataChartTimeAnnual(years) {
+    let ret =[];
+    years.forEach(year => {
+        ret.push( BaseController.sendParam('workouts/annual/total', `year=${year}`));   
+    });
+    return ret;
+}
+
 function dataChartBySport(monthIni, monthEnd, sport) {    
     let ret =[];
     for (let month = monthIni; month <= monthEnd; month++) {  
@@ -91,7 +99,7 @@ class StatisticsController {
         }
     }
 
-    static initChartTime() {
+    static initChartTimeMonthly() {
 
         const data = {
             labels: MONTHS,
@@ -101,6 +109,50 @@ class StatisticsController {
                     backgroundColor: 'rgb(175, 0, 0)',
                     borderColor: 'rgb(175, 0, 0)',
                     data: dataChartTime()
+                }
+            ]
+        };
+        const config = {
+            type: 'line',
+            data,
+            options: {}
+        };
+    
+        var chartTime = new Chart(
+            $('#chartTime'),
+            config
+        );
+    }
+
+    static initChartTimeAnnual() {
+
+        let currentYear = new Date().getFullYear(); 
+        let years = [];
+        for (let year = 2013 ; year <= currentYear; year++) {
+            years.push(year);
+        }
+
+        let arrSum = [];
+        let arrCount = [];
+        dataChartTimeAnnual(years).forEach(ret => {
+            arrSum.push(ret[0].totalDuration);
+            arrCount.push(ret[0].count);
+        });
+
+        const data = {
+            labels: years,
+            datasets: [
+                {
+                    label: 'Sum',
+                    backgroundColor: 'rgb(175, 0, 0)',
+                    borderColor: 'rgb(175, 0, 0)',
+                    data: arrSum
+                },
+                {
+                    label: 'Count',
+                    backgroundColor: 'rgb(37, 31, 244)',
+                    borderColor: 'rgb(37, 31, 244)',
+                    data: arrCount
                 }
             ]
         };
