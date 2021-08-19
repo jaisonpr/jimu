@@ -4,12 +4,14 @@ const
   bodyParser = require('body-parser'),
   cors = require('cors');
 
+
+require('dotenv').config();
   
 const Workout = require('./api/models/workout');
 const BodyMeasurement = require('./api/models/bodyMeasurement');
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
-mongoose.connect('mongodb://localhost:27017/jimu-db')
+mongoose.connect(process.env.DATABASE_URL)
   .then((db) => {
     console.log('Connected correctly to database server');
   })
@@ -26,7 +28,7 @@ app.use(bodyParser.json());
 
 
 const corsOptions = {
-  origin: "http://localhost:4200"
+  origin: process.env.CORS_ORIGIN
 };
 app.use(cors(corsOptions));
 
@@ -42,7 +44,6 @@ app.use(function(req, res) {
 });
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}.`);
 });
