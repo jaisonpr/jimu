@@ -1,73 +1,30 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    BodyMeasurement = mongoose.model('BodyMeasurements');
-
+const service = require('../services/bodyMeasurementService');
 
 exports.listAll = function (req, res) {
-    BodyMeasurement.find({}, function (err, bodyMeasurement) {
-        if (err)
-            res.send(err);
-        res.json(bodyMeasurement);
-    });
+    service.listAll(res);
 };
-
 
 exports.create = function (req, res) {
-    ( new BodyMeasurement(req.body)).save(function (err, bodyMeasurement) {
-        if (err)
-            res.send(err);
-        res.json(bodyMeasurement);
-    });
+    service.create(req.body, res);
 };
-
 
 exports.getById = function (req, res) {
-    BodyMeasurement.findById(req.params.bodyMeasurementId, function (err, bodyMeasurement) {
-        if (err)
-            res.send(err);
-        res.json(bodyMeasurement);
-    });
+    service.getById(req.params.bodyMeasurementId, res);
 };
-
 
 exports.edit = function (req, res) {
-    BodyMeasurement.findOneAndUpdate({ _id: req.params.bodyMeasurementId }, req.body, { new: true }, function (err, bodyMeasurement) {
-        if (err)
-            res.send(err);
-        res.json(bodyMeasurement);
-    });
+    service.edit(req.params.bodyMeasurementId, req.body, res);
 };
 
-
 exports.delete = function (req, res) {
-    BodyMeasurement.deleteOne({ _id: req.params.bodyMeasurementId }, function (err, bodyMeasurement) {
-        if (err)
-            res.send(err);
-        res.json({ message: 'BodyMeasurement successfully deleted' });
-    });
+    service.delete(req.params.bodyMeasurementId, res);
 };
 
 
 exports.search = function (req, res) {
     let { dateInitial, dateFinal, onlyWeight } = req.query;
-    let query = {};
-
-    if (dateInitial != '')  {
-        query.date = {
-            $gte: new Date(`${dateInitial} 00:00:00`),
-            $lte: new Date(`${dateFinal} 23:59:59`)
-        }
-    }
-    query.bmi = (onlyWeight === 'true') ? { $eq : 0 } : { $gt : 0 } ;
-
-    BodyMeasurement
-        .find( query ) 
-        .sort( { 'date': 'asc' } )
-        .exec( 
-            function(err, obj) {
-                if (err)
-                    res.send(err);
-                res.json(obj);
-        });
+    
+    service.search(dateInitial, dateFinal, onlyWeight, res);
 };
