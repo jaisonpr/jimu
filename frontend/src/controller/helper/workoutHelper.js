@@ -49,7 +49,7 @@ function workoutToDocument(workout) {
     
     $('#title').val(workout.title); 
     $('#date').val(`${dateTime.getFullYear()}-${formatTwoDigits(dateTime.getMonth() + 1)}-${formatTwoDigits(dateTime.getDate())}`); 
-    $('#time').val(`${formatTwoDigits(dateTime.getUTCHours())}:${formatTwoDigits(dateTime.getUTCMinutes())}`); 
+    $('#timeIni').val(`${formatTwoDigits(dateTime.getUTCHours())}:${formatTwoDigits(dateTime.getUTCMinutes())}`); 
     $('#duration').val((workout.duration < 100 ? '0' : '') + workout.duration); 
     $('#sport').val(workout.sport); 
     $('#local').val(workout.local); 
@@ -60,7 +60,7 @@ function workoutToDocument(workout) {
 function jsonString() {
     return ` {
         "title"     : "${$('#title').val()}",
-        "dateTime"  : "${$('#date').val() + "T" + $('#time').val() + ":00.000Z"}",
+        "dateTime"  : "${$('#date').val() + "T" + $('#timeIni').val() + ":00.000Z"}",
         "duration"  : "${$('#duration').val()}",
         "sport"     : "${$('#sport').val()}",
         "local"     : "${$('#local').val()}"
@@ -97,8 +97,16 @@ function initForm(action, workout) {
         WorkoutController.save(id);
     });    
     $("#date").mask("9999-99-99", { autoclear: false });
-    $("#time").mask("99:99", { autoclear: false });
+    $("#timeIni").mask("99:99", { autoclear: false });
+    $("#timeEnd").mask("99:99", { autoclear: false });
     $("#duration").mask("999", { autoclear: false });
+    $('#timeEnd').on('blur', function (e) {
+        let startTime = new Date(`2022-5-3 ${$('#timeIni').val()}:00`).getTime(); 
+        let endTime = new Date(`2022-5-3 ${$('#timeEnd').val()}:00`).getTime();  
+        let minutes = Math.abs(startTime - endTime) / 60 / 1000 ;
+
+        $('#duration').val( (minutes < 100 ? '0' : '') + minutes);
+    });    
 }
 
 

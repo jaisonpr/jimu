@@ -9,24 +9,56 @@
     <form id="formAddNew">
         <div class="form-group">
             <div class="row">
+                <div class="col-form-label col-sm-2 ">Sport</div>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <select name="sport" id="sport" class="form-control" title="Sport">                           
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
                 <div class="col-form-label col-sm-2 ">Title</div>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                        <!-- <input type="text" class="form-control" id="title" name="title" placeholder="Title"> -->
+
+                        <input type="text" list="combo-title" class="form-control" id="title" name="title" placeholder="Title">
+                        <datalist id="combo-title">
+                            <option value="Misto">Misto</option>
+                            <option value="Karate">Karate</option>
+                            <option value="CoreP">CoreP</option>
+                            <option value="BAT">BAT</option>
+                            <option value="POC">POC</option>
+                            <option value="Superior">Superior</option>
+                            <option value="V300">V300</option>
+                        </datalist>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
-            <label for="date" class="col-md-2 col-form-label">Date and Time</label>
+            <label for="date" class="col-md-2 col-form-label">Date</label>
             <div class="col-sm-4">
                 <div class="input-group">
                     <input type="text" class="form-control" id="date" name="date" placeholder="Date">
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="time" name="time" placeholder="Time">
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-form-label col-sm-2 ">Time</div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="timeIni" name="time" placeholder="Start">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="timeEnd" name="time" placeholder="End">
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,17 +78,6 @@
                 <div class="col-sm-8">
                     <div class="input-group">
                         <input type="text" class="form-control" id="local" name="local" placeholder="Local">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-form-label col-sm-2 ">Sport</div>
-                <div class="col-sm-8">
-                    <div class="input-group">
-                        <select name="sport" id="sport" class="form-control" title="Sport">                           
-                        </select>
                     </div>
                 </div>
             </div>
