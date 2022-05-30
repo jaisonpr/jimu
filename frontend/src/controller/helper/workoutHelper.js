@@ -78,6 +78,7 @@ function initForm(action, workout) {
         let day = formatTwoDigits(dateTime.getDate());    
 
         $('#date').val(`${dateTime.getFullYear()}-${month}-${day}`); 
+        $('#timeIni').val(`${formatTwoDigits(dateTime.getUTCHours()-3)}:${formatTwoDigits(dateTime.getUTCMinutes())}`); 
         $("#btnDelete").removeAttr("style").hide();
         
     } else if (action == 'edit') {

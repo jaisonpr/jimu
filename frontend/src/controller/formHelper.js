@@ -16,7 +16,7 @@ export function basicFilterForm() {
     let dateTime = new Date();
     let month = formatTwoDigits(dateTime.getMonth() + 1);
     let day = formatTwoDigits(dateTime.getDate());  
-    $('#dateIni').val('2021-01'); 
+    $('#dateIni').val('2013-05'); 
     $("#dateIni").mask("9999-99", { autoclear: false });
     $('#dateFinal').val(`${dateTime.getFullYear()}-${month}-${day}`); 
     $("#dateFinal").mask("9999-99", { autoclear: false }); 
