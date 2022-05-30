@@ -105,9 +105,14 @@ function initForm(action, workout) {
         let startTime = new Date(`2022-5-3 ${$('#timeIni').val()}:00`).getTime(); 
         let endTime = new Date(`2022-5-3 ${$('#timeEnd').val()}:00`).getTime();  
         let minutes = Math.abs(startTime - endTime) / 60 / 1000 ;
-
-        $('#duration').val( (minutes < 100 ? '0' : '') + minutes);
+        if (! isNaN(minutes)) {
+            $('#duration').val( (minutes < 100 ? '0' : '') + minutes);
+        }
     });    
+    $('#timeEnd').on('click', function (e) {
+        let dateTime = new Date();
+        $('#timeEnd').val(`${formatTwoDigits(dateTime.getUTCHours()-3)}:${formatTwoDigits(dateTime.getUTCMinutes())}`); 
+    });
 }
 
 
