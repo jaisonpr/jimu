@@ -88,7 +88,7 @@ exports.search = function (title, dateInitial, dateFinal, local, sport, res) {
                 if (err)
                     res.send(err);
                 res.json(workout);
-        });
+            });
 };
 
 
@@ -113,3 +113,28 @@ exports.totalAnnual = function (year, res) {
             res.json(result);
         });
 };
+
+
+exports.listMonthlyInterval = function (startDate, endDate, res) {
+    
+    Workout.aggregate(
+        [         
+            { $match: {
+                dateTime: { $gte: new Date(startDate), $lte: new Date(endDate)  } 
+            }},
+            { $group: {
+                _id: { $dateToString: { format: "%Y-%m", date: "$dateTime" } },
+                count: { $sum: 1 },
+                totalDuration: { $sum: '$duration' }
+            }},
+            { $sort: { 
+                "_id": 1 
+            }}
+        ], 
+        function (err, result) {
+            if (err)
+                res.send(err);                
+            res.json(result);
+        });
+};
+

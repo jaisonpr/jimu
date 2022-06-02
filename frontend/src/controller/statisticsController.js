@@ -4,16 +4,21 @@ import { populateSportSelect, basicFilterForm, formatInitialDate, formatFinalDat
 import { MONTHS, SPORTS, SPORTS_COLORS } from '../constants.js';
 import { formatTime, month, arrayMonths } from '../util.js';
 
+let labelsChart = [];
 let chartSports;
 let durationWorkouts = function(sum, {duration}) { return sum + duration; };
 
 function dataChartTime() {
-    const year = new Date().getFullYear(); 
     let ret = [];
-    for (let month = 1; month <= 12; month++) {
-        let workouts = BaseController.sendParam('workouts/monthly', `date=${year}-${month}-01`);        
-        ret.push( workouts.reduce( durationWorkouts, 0) / 60);
-    }
+    let date = new Date();
+    let dateIni = ( new Date( date.setFullYear( date.getFullYear() - 1))).toISOString().split('T')[0];
+    let dateEnd = ( new Date()).toISOString().split('T')[0];
+
+    let workouts = BaseController.sendQuery('workouts/monthly/interval', `dateInitial=${dateIni}&dateFinal=${dateEnd}`);
+    workouts.forEach(workout => {
+        labelsChart.push(workout._id);
+        ret.push( workout.totalDuration / 60 );   
+    });
     return ret;
 }
 
@@ -102,7 +107,7 @@ class StatisticsController {
     static initChartTimeMonthly() {
 
         const data = {
-            labels: MONTHS,
+            labels: labelsChart,
             datasets: [
                 {
                     label: 'Total time',

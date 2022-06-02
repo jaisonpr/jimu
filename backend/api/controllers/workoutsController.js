@@ -47,3 +47,11 @@ exports.search = function (req, res) {
     
     service.search(title, dateInitial, dateFinal, local, sport, res);
 };
+
+
+exports.listMonthlyInterval = function (req, res) {
+
+    let {dateInitial, dateFinal} = req.query;
+
+    service.listMonthlyInterval(dateInitial, dateFinal, res);
+}
