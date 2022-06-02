@@ -38,7 +38,7 @@ class MeasurementsController {
             MeasurementsController.filterWeight();
         });
         $('#btnNew').on('click', function (e) {
-            $('#screenModal').modal('show').find('.modal-content').load('pages/weight_form.html', function() {
+            $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/weight_form.html', function() {
                 MeasurementsController.initWeightForm('add');
             });    
         });
@@ -77,7 +77,7 @@ class MeasurementsController {
             MeasurementsController.filterBody();
         });
         $('#btnNew').on('click', function (e) {
-            $('#screenModal').modal('show').find('.modal-content').load('pages/body_form.html', function() {
+            $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/body_form.html', function() {
                 MeasurementsController.initBodyForm('add');
             });    
         });
@@ -106,7 +106,7 @@ class MeasurementsController {
         $('#table-weight tbody').on('click', 'tr', function () {
             let bodyRow = $('#table-weight').DataTable().row( this ).data();
 
-            $('#screenModal').modal('show').find('.modal-content').load('pages/body_form.html', function() {     
+            $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/body_form.html', function() {     
                 initForm('edit', measurements.find(({ _id }) => _id === bodyRow._id) );
             });
         });

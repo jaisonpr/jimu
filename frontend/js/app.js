@@ -6,63 +6,63 @@ import { MeasurementsController } from '../src/controller/measurementsController
 
 $('#linkHistory').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/history.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/history/history.html', function() {
         HistoryController.initForm();
     });    
 });
 
 $('#linkSummary').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/summary.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/statistics/summary.html', function() {
         StatisticsController.initSummaryForm();
+    });    
+});
+
+$('#linkChartSports').on('click', function (e) {
+    e.preventDefault();
+    $('#screenModal').modal('show').find('.modal-content').load('pages/statistics/chart_sports.html', function() {
+        StatisticsController.initChartSportsForm();
     });    
 });
 
 $('#linkChartTimeMonthly').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_time_monthly.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/statistics/chart_time_monthly.html', function() {
         StatisticsController.initChartTimeMonthly();
     });    
 });
 
 $('#linkChartTimeAnnual').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_time_annual.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/statistics/chart_time_annual.html', function() {
         StatisticsController.initChartTimeAnnual();
-    });    
-});
-
-$('#linkChartSports').on('click', function (e) {
-    e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_sports.html', function() {
-        StatisticsController.initChartSportsForm();
     });    
 });
 
 $('#linkMeasurementsBody').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/body_list.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/body_list.html', function() {
         MeasurementsController.initBody();
     });    
 });
 
 $('#linkMeasurementsWeight').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/weight_list.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/weight_list.html', function() {
         MeasurementsController.initWeight();
     });    
 });
 
 $('#linkMeasurementFitness').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/chart_fitness', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/chart_fitness', function() {
         MeasurementsController.chartFitness();
     });    
 });
 
 $('#btnNewWorkout').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/workout_form.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/workouts/workout_form.html', function() {
         WorkoutController.initForm('add');
     });    
 });

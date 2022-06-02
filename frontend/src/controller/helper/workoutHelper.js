@@ -39,7 +39,7 @@ async function editWorkout(id) {
     let workouts = JSON.parse(sessionStorage.getItem("workouts"));
     let workout = workouts.find(({ _id }) => _id === id);
 
-    $('#screenModal').modal('show').find('.modal-content').load('pages/workout_form.html', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/workouts/workout_form.html', function() {
         WorkoutController.initForm('edit', workout);
     });    
 }
