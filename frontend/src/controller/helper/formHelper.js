@@ -1,6 +1,6 @@
 'use strict';
-import { formatTwoDigits, month, year } from '../util.js';
-import { SPORTS } from '../constants.js';
+import { formatTwoDigits, month, year } from '../../util.js';
+import { SPORTS } from '../../constants.js';
   
 
 export function populateSportSelect(firstBlank) {

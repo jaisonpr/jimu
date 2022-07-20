@@ -1,7 +1,7 @@
 'use strict';
 import { BaseController } from './base.js';
-import { basicFilterForm } from './formHelper.js';
-import { populateSportSelect, formatInitialDate, formatFinalDate, formatDate } from './formHelper.js';
+import { basicFilterForm } from './helper/formHelper.js';
+import { populateSportSelect, formatInitialDate, formatFinalDate, formatDate } from './helper/formHelper.js';
 
 
 class HistoryController {

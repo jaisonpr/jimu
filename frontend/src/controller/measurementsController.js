@@ -1,6 +1,6 @@
 'use strict';
 import { BaseController } from './base.js';
-import { basicFilterForm, formatInitialDate, formatFinalDate, formatDate } from './formHelper.js';
+import { basicFilterForm, formatInitialDate, formatFinalDate, formatDate } from './helper/formHelper.js';
 import { MONTHS } from '../constants.js';
 import { initForm } from './helper/measurementsHelper.js';
 

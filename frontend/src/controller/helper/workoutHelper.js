@@ -1,7 +1,7 @@
 'use strict';
 import { WorkoutController } from '../workoutController.js';
 import { formatTime, formatTwoDigits } from '../../util.js';
-import { populateSportSelect } from '../formHelper.js';
+import { populateSportSelect } from './formHelper.js';
 import { MONTHS } from '../../constants.js';
 
 const date = new Date();

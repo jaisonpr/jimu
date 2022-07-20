@@ -1,6 +1,6 @@
 'use strict';
 import { BaseController } from './base.js';
-import { populateSportSelect, basicFilterForm, formatInitialDate, formatFinalDate } from './formHelper.js';
+import { populateSportSelect, basicFilterForm, formatInitialDate, formatFinalDate } from './helper/formHelper.js';
 import { MONTHS, SPORTS, SPORTS_COLORS } from '../constants.js';
 import { formatTime, month, arrayMonths } from '../util.js';
 
@@ -17,7 +17,7 @@ function dataChartTime() {
     let workouts = BaseController.sendQuery('workouts/monthly/interval', `dateInitial=${dateIni}&dateFinal=${dateEnd}`);
     workouts.forEach(workout => {
         labelsChart.push(workout._id);
-        ret.push( workout.totalDuration / 60 );   
+        ret.push( Math.round(workout.totalDuration / 60 ));   
     });
     return ret;
 }
@@ -140,7 +140,8 @@ class StatisticsController {
         let arrSum = [];
         let arrCount = [];
         dataChartTimeAnnual(years).forEach(ret => {
-            arrSum.push(ret[0].totalDuration);
+            let hours = Math.round(ret[0].totalDuration / 60 );
+            arrSum.push(hours);
             arrCount.push(ret[0].count);
         });
 
@@ -148,17 +149,17 @@ class StatisticsController {
             labels: years,
             datasets: [
                 {
-                    label: 'Sum',
+                    label: 'Total time',
                     backgroundColor: 'rgb(175, 0, 0)',
                     borderColor: 'rgb(175, 0, 0)',
                     data: arrSum
-                },
-                {
-                    label: 'Count',
-                    backgroundColor: 'rgb(37, 31, 244)',
-                    borderColor: 'rgb(37, 31, 244)',
-                    data: arrCount
                 }
+                // {
+                //     label: 'Count',
+                //     backgroundColor: 'rgb(37, 31, 244)',
+                //     borderColor: 'rgb(37, 31, 244)',
+                //     data: arrCount
+                // }
             ]
         };
         const config = {
