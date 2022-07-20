@@ -39,6 +39,11 @@ workoutRoutes(app);
 let bodyMeasurementRoutes = require('./api/routes/bodyMeasurementRoutes'); 
 bodyMeasurementRoutes(app); 
 
+app.get('/test', (req, res) => {
+  res.send('OK')
+})
+
+
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
 });
@@ -47,3 +52,10 @@ app.use(function(req, res) {
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}.`);
 });
+
+
+
+var bonjour = require('bonjour')();
+
+// advertise an HTTP server on port 3000
+bonjour.publish({ name: 'JimuBackendServer', type: 'http', port: 3000 });
