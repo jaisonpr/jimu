@@ -28,3 +28,7 @@ export function arrayMonths(monthIni, monthEnd) {
     }
     return months;
 }
+
+export function getCurrentMonth() {
+    return new Date().getMonth() + 1;
+}

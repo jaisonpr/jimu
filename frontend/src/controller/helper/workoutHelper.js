@@ -157,7 +157,7 @@ const renderCalendar = async (load) => {
 
         let li_workouts = '';
         dayObject.workouts.forEach ( w => { 
-            li_workouts += `<li id="${w._id}" class="wd">${w.sport}</li>`; 
+            li_workouts += `<li id="${w._id}" class="wd">${w.sport} - ${w.duration}'  </li>`; 
         } );
 
         workouts_month += dayObject.workouts.length;

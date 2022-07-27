@@ -26,7 +26,7 @@ function dataBody(dateInitial, dateFinal) {
 }
 
 function dataFitness() {
-    
+    console.log("\t\t\t\t\t dataFitness ");
 }
 
 class MeasurementsController {

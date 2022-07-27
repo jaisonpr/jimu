@@ -43,3 +43,4 @@ export const SPORTS_COLORS = [
 
 export const AGE = 39;
 export const HEIGHT = 178;
+export const START_YEAR = 2013;

@@ -55,7 +55,7 @@ $('#linkMeasurementsWeight').on('click', function (e) {
 
 $('#linkMeasurementFitness').on('click', function (e) {
     e.preventDefault();
-    $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/chart_fitness', function() {
+    $('#screenModal').modal('show').find('.modal-content').load('pages/measurements/chart_fitness.html', function() {
         MeasurementsController.chartFitness();
     });    
 });
