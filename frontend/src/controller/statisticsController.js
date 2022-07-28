@@ -4,24 +4,19 @@ import { populateSportSelect, basicFilterForm, formatInitialDate, formatFinalDat
 import { MONTHS, SPORTS, SPORTS_COLORS, START_YEAR } from '../constants.js';
 import { formatTime, month, arrayMonths, getCurrentMonth } from '../util.js';
 
-let labelsChart = [];
 let chartSports;
 let durationWorkouts = function(sum, {duration}) { return sum + duration; };
 
 function dataChartTime() {
-    let ret = [];
     let date = new Date();
     date.setDate(1);
     date.setFullYear( date.getFullYear() - 1);
-    let dateIni = date.toISOString().split('T')[0];
-    let dateEnd = ( new Date()).toISOString().split('T')[0];
+    let startDate = date.toISOString().split('T')[0];
+    let endDate = ( new Date()).toISOString().split('T')[0];
 
-    let workouts = BaseController.sendQuery('workouts/monthly/interval', `dateInitial=${dateIni}&dateFinal=${dateEnd}`);
-    workouts.forEach(workout => {
-        labelsChart.push(workout._id);
-        ret.push( Math.round(workout.totalDuration / 60 ));   
-    });
-    return ret;
+    let workouts = BaseController.sendQuery('workouts/monthly/interval', `startDate=${startDate}&endDate=${endDate}`);
+    
+    return workouts;
 }
 
 function dataChartTimeAnnual(years) {
@@ -38,7 +33,7 @@ function dataChartBySport(sport) {
     for (let month = 1; month <= getCurrentMonth(); month++) {  
         let dtMonthIni = `${currentYear}-${month}-01`;
         let dtMonthEnd = `${currentYear}-${month}-${ new Date('2021', month, 0).getDate()}`;
-        let workouts =  BaseController.sendQuery('workouts', `title=&dateInitial=${dtMonthIni}&dateFinal=${dtMonthEnd}&local=&sport=${sport}`); 
+        let workouts =  BaseController.sendQuery('workouts', `title=&startDate=${dtMonthIni}&endDate=${dtMonthEnd}&local=&sport=${sport}`); 
         ret.push( workouts.reduce( durationWorkouts, 0) / 60);
     }
     return ret;
@@ -46,7 +41,7 @@ function dataChartBySport(sport) {
 
 function dataSummary() {    
     return BaseController.sendQuery('workouts', 
-        `title=&dateInitial=${formatInitialDate($('#dateIni').val())}&dateFinal=${formatFinalDate($('#dateFinal').val())}&local=&sport=`); 
+        `title=&startDate=${formatInitialDate($('#startDate').val())}&endDate=${formatFinalDate($('#endDate').val())}&local=&sport=`); 
 }
 
 
@@ -108,6 +103,15 @@ class StatisticsController {
 
     static initChartTimeMonthly() {
 
+        let labelsChart = [];
+        let workoutsChart = [];
+        let workouts = dataChartTime();
+
+        workouts.forEach(workout => {
+            labelsChart.push(workout._id);
+            workoutsChart.push( Math.round(workout.totalDuration / 60 ));   
+        });
+
         const data = {
             labels: labelsChart,
             datasets: [
@@ -115,7 +119,7 @@ class StatisticsController {
                     label: 'Total time',
                     backgroundColor: 'rgb(175, 0, 0)',
                     borderColor: 'rgb(175, 0, 0)',
-                    data: dataChartTime()
+                    data: workoutsChart
                 }
             ]
         };

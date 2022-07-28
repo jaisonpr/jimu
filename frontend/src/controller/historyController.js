@@ -19,8 +19,8 @@ class HistoryController {
     static filter() { 
         let workouts = BaseController.sendQuery('workouts', 
             `title=${$('#title').val() }&`+
-            `dateInitial=${formatInitialDate($('#dateIni').val())}&`+
-            `dateFinal=${formatFinalDate($('#dateFinal').val())}&`+
+            `startDate=${formatInitialDate($('#startDate').val())}&`+
+            `endDate=${formatFinalDate($('#endDate').val())}&`+
             `local=${$('#local').val()}&`+
             `sport=${$('#sport').val()}`);
   

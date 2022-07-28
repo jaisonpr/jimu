@@ -16,18 +16,18 @@ export function basicFilterForm() {
     let dateTime = new Date();
     let month = formatTwoDigits(dateTime.getMonth() + 1);
     let day = formatTwoDigits(dateTime.getDate());  
-    $('#dateIni').val('2013-05'); 
-    $("#dateIni").mask("9999-99", { autoclear: false });
-    $('#dateFinal').val(`${dateTime.getFullYear()}-${month}-${day}`); 
-    $("#dateFinal").mask("9999-99", { autoclear: false }); 
+    $('#startDate').val('2013-05'); 
+    $("#startDate").mask("9999-99", { autoclear: false });
+    $('#endDate').val(`${dateTime.getFullYear()}-${month}-${day}`); 
+    $("#endDate").mask("9999-99", { autoclear: false }); 
 };
 
 export function formatInitialDate() {
-    return `${$('#dateIni').val()}-01`;
+    return `${$('#startDate').val()}-01`;
 }
 
 export function formatFinalDate() {
-    let date = $('#dateFinal').val();
+    let date = $('#endDate').val();
     return `${date}-${ new Date(year(date), month(date), 0).getDate()}`;
 }
 

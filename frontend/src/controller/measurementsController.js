@@ -4,18 +4,18 @@ import { basicFilterForm, formatInitialDate, formatFinalDate, formatDate } from 
 import { MONTHS } from '../constants.js';
 import { initForm } from './helper/measurementsHelper.js';
 
-function dataWeight(dateInitial, dateFinal) {
+function dataWeight(startDate, endDate) {
     return BaseController.sendQuery('bodyMeasurements', 
-        `dateInitial=${dateInitial}&dateFinal=${dateFinal}&onlyWeight=true`)
+        `startDate=${startDate}&endDate=${endDate}&onlyWeight=true`)
         .map( function(body) { 
             body.date = formatDate(body.date);
             return body; 
         });;
 }
 
-function dataBody(dateInitial, dateFinal) {
+function dataBody(startDate, endDate) {
     return BaseController.sendQuery('bodyMeasurements', 
-        `dateInitial=${dateInitial}&dateFinal=${dateFinal}&onlyWeight=false`)
+        `startDate=${startDate}&endDate=${endDate}&onlyWeight=false`)
         .map( function(body) { 
             body.date = formatDate(body.date);
             body.bmi = body.bmi.toFixed(2);
@@ -50,7 +50,7 @@ class MeasurementsController {
     }
 
     static filterWeight() {     
-        let weights = dataWeight( formatInitialDate($('#dateIni').val()), formatFinalDate($('#dateFinal').val()));
+        let weights = dataWeight( formatInitialDate($('#startDate').val()), formatFinalDate($('#endDate').val()));
         $('#table-weight').DataTable( {
             searching: false,
             data: weights, 
@@ -89,7 +89,7 @@ class MeasurementsController {
 
 
     static filterBody() {     
-        let measurements = dataBody( formatInitialDate($('#dateIni').val()), formatFinalDate($('#dateFinal').val()));
+        let measurements = dataBody( formatInitialDate($('#startDate').val()), formatFinalDate($('#endDate').val()));
         $('#table-weight').DataTable( {
             searching: false,
             data: measurements, 
