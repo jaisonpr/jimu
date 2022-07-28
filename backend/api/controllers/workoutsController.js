@@ -43,15 +43,28 @@ exports.totalAnnual = function (req, res) {
 
 exports.search = function (req, res) {
 
-    let { title, dateInitial, dateFinal, local, sport } = req.query;
+    let { title, startDate, endDate, local, sport } = req.query;
     
-    service.search(title, dateInitial, dateFinal, local, sport, res);
+    service.search(title, startDate, endDate, local, sport, res);
 };
 
 
 exports.listMonthlyInterval = function (req, res) {
 
-    let {dateInitial, dateFinal} = req.query;
+    let {startDate, endDate} = req.query;
 
-    service.listMonthlyInterval(dateInitial, dateFinal, res);
-}
+    service.listMonthlyInterval(startDate, endDate, res);
+};
+
+
+
+exports.test = function (req, res) {
+
+    console.log(' exports.test = function (req, res) ');
+
+    let {startDate, endDate} = req.query;
+
+    const serviceResponse =  service.test(startDate, endDate, res);
+    
+    serviceResponse.then(string => res.send(string));
+};

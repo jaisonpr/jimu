@@ -23,4 +23,7 @@ module.exports = function(app) {
     
     app.route(api+'/workouts/annual/total/:year')
         .get(controller.totalAnnual);
+
+    app.route(api+'/test')
+        .get(controller.test);
 };

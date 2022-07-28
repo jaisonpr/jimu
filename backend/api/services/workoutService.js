@@ -64,17 +64,17 @@ exports.listMonthly = function (startDate, endDate, res) {
 };
 
 
-exports.search = function (title, dateInitial, dateFinal, local, sport, res) {
+exports.search = function (title, startDate, endDate, local, sport, res) {
 
     let query = {};
 
     if (title != '') {
         query.title = { $regex: '.*' + title + '.*' };
     }
-    if (dateInitial != '')  {
+    if (startDate != '')  {
         query.dateTime = {
-            $gte: new Date(`${dateInitial} 00:00:00`),
-            $lte: new Date(`${dateFinal} 23:59:59`)
+            $gte: new Date(`${startDate} 00:00:00`),
+            $lte: new Date(`${endDate} 23:59:59`)
         }
     }
     if (local != '') query.local = { $regex: '.*' + local + '.*' };
@@ -138,3 +138,28 @@ exports.listMonthlyInterval = function (startDate, endDate, res) {
         });
 };
 
+
+exports.test = async function (startDate, endDate, res) {
+
+    console.log('exports.test = async function (startDate, endDate, res)  ');
+
+    const query = Workout.aggregate(
+        [         
+            { $match: {
+                dateTime: { $gte: new Date(startDate), $lte: new Date(endDate)  } 
+            }},
+            { $group: {
+                _id: { $dateToString: { format: "%Y-%m", date: "$dateTime" } },
+                count: { $sum: 1 },
+                totalDuration: { $sum: '$duration' }
+            }},
+            { $sort: { 
+                "_id": 1 
+            }}
+        ]);
+    const result = await query.exec(); 
+
+    console.log(result);
+
+    return (result);    
+}
